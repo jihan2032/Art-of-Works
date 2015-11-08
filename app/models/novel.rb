@@ -9,6 +9,9 @@
 #  cover_photo :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  abstract    :text(65535)
+#  likes       :integer          default(0)
+#  reads       :integer          default(0)
 #
 
 class Novel < ActiveRecord::Base
@@ -18,5 +21,10 @@ class Novel < ActiveRecord::Base
 
   # Validations
   validates :title, :user_id, :category, presence: true
+
+  # Methods
+  def self.has_chapters
+    Novel.where(id: Chapter.where(chapter_no: 1).pluck(:novel_id)) if Chapter.any?
+  end
 
 end

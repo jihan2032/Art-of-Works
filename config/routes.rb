@@ -9,9 +9,6 @@ Rails.application.routes.draw do
     end
   end
   resources  :novels do
-    member do
-      get :display_novel
-    end
     resources  :chapters
   end
 

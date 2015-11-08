@@ -1,7 +1,60 @@
-%h3 Novels
-%ol.breadcrumb
-  %li
-    %a{:href => "#"} Home
-  %li
-    %a{:href => "#"} Library
-  %li.active Data
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1 Novels
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            = link_to 'Home', root_path
+          %li
+            = link_to 'Library', root_path
+          %li.active Data
+    - if @novels.any?
+      .row.cards-list
+        .col-sm-4.col-sm-offset-8.list-filter.text-center
+          %ol.breadcrumb
+            %li
+              %a{:href => "#"} Most Recent
+            %li
+              %a{:href => "#"} Random
+            %li.active Most Popular
+        .col-sm-12
+          / - 10.times do
+          - @novels.each do |novel|
+            .card
+              .media
+                = link_to '#', class: 'media-left' do
+                  = image_tag novel.cover_photo.square, class: 'media-object'
+                .media-body
+                  %p.label.danger 18+
+                  %a
+                    %h4.media-heading= novel.title
+                  %p.description= novel.abstract
+                  %p.extra-info
+                    %span #Tracks: 5
+                    %span.tags.pull-right
+                      %i genre-1
+                      %i genre-2
+                      %i genre-3
+        .col-sm-12.text-center
+          %nav
+            %ul.pagination
+              %li.disabled
+                %a{"aria-label" => "Previous", :href => "#"}
+                  %span{"aria-hidden" => "true"} «
+              %li
+                %a{:href => "#"} 1
+              %li
+                %a{:href => "#"} 2
+              %li
+                %a{:href => "#"} 3
+              %li
+                %a{:href => "#"} 4
+              %li
+                %a{:href => "#"} 5
+              %li
+                %a{"aria-label" => "Next", :href => "#"}
+                  %span{"aria-hidden" => "true"} »
+    - else
+      %h4 No novels created yet

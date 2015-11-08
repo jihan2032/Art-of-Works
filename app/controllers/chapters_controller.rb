@@ -3,6 +3,24 @@ class ChaptersController < ApplicationController
   before_action :set_chapter, only: [ :show, :edit, :update ]
   before_action :set_novel, only: [ :show, :edit, :update ]
 
+  def new
+    @chapter = Chapter.new
+    if params[:parent_chapter_id].present?
+      parent              = Chapter.find params[:parent_chapter_id]
+      @chapter.parent_id  = parent.id
+      @chapter.chapter_no = parent.chapter_no + 1
+    end
+  end
+
+  def create
+    @chapter = Chapter.new chapters_params
+    if @chapter.save
+      redirect_to novel_path(@chapter.novel, chapter_no: @chapter.no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def show
   end
 
@@ -12,7 +30,7 @@ class ChaptersController < ApplicationController
   def update
     @chapter.update chapters_params
     if @chapter.save
-      redirect_to chapters_path, notice: 'Chapter was successfully updated'
+      redirect_to novel_path(@chapter.novel, chapter_no: @chapter.no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully updated.'
     else
       render :edit
     end
@@ -31,7 +49,9 @@ private
   def chapters_params
     params.require(:chapter).permit(
       :title,
-      :novel_id
+      :novel_id,
+      :chapter_no,
+      :parent_id
     )
   end
 

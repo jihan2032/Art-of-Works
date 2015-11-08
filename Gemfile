@@ -16,6 +16,7 @@ group :development, :test do
 end
 
 gem 'autoprefixer-rails'
+gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 

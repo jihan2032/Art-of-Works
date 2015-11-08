@@ -68,6 +68,11 @@ GEM
     capistrano-sidekiq (0.5.3)
       capistrano
       sidekiq
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.17.2)
       celluloid-essentials
       celluloid-extras
@@ -288,6 +293,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capistrano-sidekiq
+  carrierwave
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
