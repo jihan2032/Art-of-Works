@@ -51,7 +51,8 @@ private
       :title,
       :novel_id,
       :chapter_no,
-      :parent_id
+      :parent_id,
+      :user_id
     )
   end
 

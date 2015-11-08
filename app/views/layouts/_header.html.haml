@@ -1,34 +1,56 @@
-%body
-  / [if lt IE 10]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" upgrade your browser to improve your experience.</p>
-  %header.home
-    .container-fluid
-      .row
-        .col-sm-12
-          %nav.navbar.navbar-default{:role => "navigation"}
-            .navbar-header
-              %button.navbar-toggle.collapsed{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", :type => "button"}
-                %span.sr-only Toggle navigation
-                %span.icon-bar
-                %span.icon-bar
-                %span.icon-bar
-              = link_to root_path, class: 'navbar-brand' do
-                = image_tag 'logo.png'
-            .collapse.navbar-collapse.navbar-ex1-collapse
-              %ul.nav.navbar-nav
-                %li.active
-                  = link_to 'Home', root_path
-                %li
-                  = link_to 'Novels', root_path
-                %li
-                  %a{:href => "#"} Audio
-                %li
-                  %a{:href => "#"} About
-                %li
-                  %a{:href => "#"} Contact
-              .col-sm-3.col-md-3.search-form
-                %form{:role => "search"}
-                  .input-group
-                    %input#srch-term.form-control{:name => "srch-term", :placeholder => "Author / Title / Genre", :type => "text"}/
-                    .input-group-btn
-                      %button.btn.btn-default{:type => "submit"}
-                        %i.glyphicon.glyphicon-search
+%header.home
+  .container-fluid
+    .row
+      .col-sm-12
+        %nav.navbar.navbar-default{:role => "navigation"}
+          .navbar-header
+            %button.navbar-toggle.collapsed{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            = link_to root_path, class: 'navbar-brand' do
+              = image_tag 'logo.png'
+          .collapse.navbar-collapse.navbar-ex1-collapse.nav-section
+            %ul.nav.navbar-nav
+              %li.active
+                = link_to 'Home', root_path
+              %li.dropdown
+                %a#about-menu.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :href => "#"}
+                  Novels
+                  %span.caret
+                %ul.dropdown-menu{"aria-labelledby" => "about-menu", :role => "menu"}
+                  %li{:role => "presentation"}
+                    %a{:href => "user-readings.html", :role => "menuitem", :tabindex => "-1"} My Novels
+                  %li{:role => "presentation"}
+                    %a{:href => "user-writings.html", :role => "menuitem", :tabindex => "-1"} My Writings
+                  %li{:role => "presentation"}
+                    %a{:href => "all-novels.html", :role => "menuitem", :tabindex => "-1"} All Novels
+              %li
+                %a{:href => "#"} Audio
+              %li
+                %a{:href => "#"} About
+              %li
+                %a{:href => "#"} Contact
+            .col-sm-3.col-md-3.navbar-search
+              %form{:role => "search"}
+                .input-group
+                  %input#srch-term.form-control{:name => "srch-term", :placeholder => "Author / Title / Genre", :type => "text"}/
+                  .input-group-btn
+                    %button.btn.btn-default{:type => "submit"}
+                      %i.glyphicon.glyphicon-search
+            - unless user_signed_in?
+              .col-sm-2.pull-right.nav-section.navbar-login
+                = link_to "Log In", new_user_session_path, class: 'btn btn-primary'
+                = link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary'
+            - else
+              .col-sm-1.col-md-1.pull-right.navbar-user
+                .dropdown
+                  %a#profile-menu.profile.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :href => "#"}
+                    = image_tag current_user.profile_picture.icon
+                    %span.caret
+                  %ul.dropdown-menu{"aria-labelledby" => "profile-menu", :role => "menu"}
+                    %li{:role => "presentation"}
+                      %a{:href => "profile.html", :role => "menuitem", :tabindex => "-1"} My Account
+                    %li{:role => "presentation"}
+                      %a{:href => "logout.html", :role => "menuitem", :tabindex => "-1"} Logout

@@ -1,0 +1,90 @@
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            %a{:href => "#"} Home
+          %li
+            %a{:href => "#"} Library
+          %li.active Data
+    .row
+      .col-sm-4.col-sm-offset-8.list-filter.text-center
+        %ol.breadcrumb
+          %li
+            %a{:href => "#"} Most Recent
+          %li.active Most Popular
+          %li
+            %a{:href => "#"} Random
+    .row
+      .col-sm-3.search-filters.main-content.cards-list
+        %form.padded-form
+          %legend Search
+          .form-group
+            %input#name.form-control{:placeholder => "Type here", :required => "", :type => "text"}/
+            .checkbox
+              %label
+                %input#author{:name => "author", :type => "checkbox"}/
+                Author
+            .checkbox
+              %label
+                %input#title{:name => "title", :type => "checkbox"}/
+                Title
+            .checkbox
+              %label
+                %input#description{:name => "description", :type => "checkbox"}/
+                Description
+          %button.btn.btn-default{:type => "submit"} Search
+        %form.padded-form
+          %legend Filters
+          .form-group
+            .checkbox
+              %label
+                %input#0{:name => "genres-filter", :type => "checkbox", :value => "0"}/
+                horror
+            .checkbox
+              %label
+                %input#1{:name => "genres-filter", :type => "checkbox", :value => "1"}/
+                action
+            .checkbox
+              %label
+                %input#2{:name => "genres-filter", :type => "checkbox", :value => "2"}/
+                drama
+            .checkbox
+              %label
+                %input#3{:name => "genres-filter", :type => "checkbox", :value => "3"}/
+                adventures
+            .checkbox
+              %label
+                %input#4{:name => "genres-filter", :type => "checkbox", :value => "4"}/
+                romance
+          %button.btn.btn-default{:type => "submit"} Filter
+      .col-md-9
+        - if @novels.any?
+          .row.cards-list
+            .col-sm-12
+              / - 10.times do
+              - @novels.each do |novel|
+                .card
+                  .media
+                    = link_to novel_path(novel), class: 'media-left' do
+                      = image_tag novel.cover_photo.square, class: 'media-object'
+                    .media-body
+                      %p.label.danger 18+
+                      = link_to novel_path(novel) do
+                        %h4.media-heading= novel.title
+                      %p.description= novel.abstract
+                      %p.extra-info
+                        %span #Tracks: 5
+                        %span.tags.pull-right
+                          %i genre-1
+                          %i genre-2
+                          %i genre-3
+            .col-sm-12.text-center
+              %nav
+                %ul.pagination
+                  = paginate @novels
+        - else
+          %h4 No novels found

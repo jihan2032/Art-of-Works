@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
   resources  :novels do
     resources  :chapters
+    collection do
+      get :search
+    end
   end
 
   root to: 'novels#index'
