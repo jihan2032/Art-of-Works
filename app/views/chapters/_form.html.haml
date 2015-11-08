@@ -1,0 +1,34 @@
+= form_for [:novel, @chapter], html: { class: "main-content new-novel-form padded-form" } do |f|
+  = error_messages_for(@chapter)
+  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :novel_id, value: params[:novel_id]
+  %legend Create Chapter
+  .form-group
+    = f.label :title, "Title"
+    = f.text_field :title, required: true, placeholder: 'Chapter Title', class: 'form-control'
+  .form-group
+    %label{:for => "chapter"} Chapter Content
+    .row.quill-wysiwyg
+      .col-sm-12
+        #toolbar.ql-toolbar-container.toolbar
+          .ql-format-group
+            %span.ql-bold.ql-format-button
+            %span.ql-italic.ql-format-button
+            %span.ql-strike.ql-format-button
+            %span.ql-underline.ql-format-button
+            %span.ql-format-button.ql-link
+            %span.ql-format-separator
+          %select.ql-size
+            %option{:value => "small"} Small
+            %option{:value => "normal"} Normal
+            %option{:value => "large"} Large
+        #editor
+          %p Hello World!
+          %p
+            This is just some sample text you can
+            = succeed "." do
+              %b delete
+  .row
+    .col-sm-4.col-sm-offset-8
+      = f.submit "Create Chapter", class: "btn btn-primary"
+      = link_to "Cancel", root_path, class: "btn btn-secondry"

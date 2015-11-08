@@ -50,7 +50,8 @@ private
     params.require(:novel).permit(
       :title,
       :cover_photo,
-      :abstract
+      :abstract,
+      :user_id
     )
   end
 end

@@ -21,5 +21,5 @@ class Chapter < ActiveRecord::Base
   belongs_to :user
 
   # Validations
-  validates :novel_id, :user_id, :title, presence: true
+  validates :title, presence: true
 end
