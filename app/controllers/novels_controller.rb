@@ -6,6 +6,12 @@ class NovelsController < ApplicationController
     @novels = Novel.order(created_at: :desc)
   end
 
+  def new
+  end
+
+  def create
+  end
+
   def show
   end
 
@@ -24,7 +30,7 @@ class NovelsController < ApplicationController
   def display_novel
     chosen_chapter     = params[:chapter_no] || 1
     @current_chapters  = Chapter.where(novel_id: @novel.id, chapter_no: chosen_chapter)
-    @displayed_chapter = params[:chapter_version_id].present? Chapter.find(params[:chapter_version_id]) : @current_chapters.first
+    @displayed_chapter = params[:chapter_version_id].present? ? Chapter.find(params[:chapter_version_id]) : @current_chapters.first
     @after_chapters    = Chapter.where(parent_id: @displayed_chapter.id)
   end
 

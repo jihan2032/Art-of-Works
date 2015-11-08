@@ -38,6 +38,6 @@ class User < ActiveRecord::Base
   has_many :liked_chapters, class_name: 'Chapter'
 
   # Validations
-  validates :first_name, :last_name, presence: true
+  # validates :first_name, :last_name, presence: true
 
 end

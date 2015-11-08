@@ -15,8 +15,10 @@ group :development, :test do
   gem 'spring'
 end
 
-
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass'
 gem 'haml-rails'
+
 group :development, :staging, :test do
   gem 'factory_girl_rails'
   gem 'faker'
