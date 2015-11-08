@@ -19,6 +19,8 @@
 #  last_name              :string(255)
 #  mobile_number          :string(255)
 #  title                  :string(255)
+#  profile_picture        :string(255)
+#  user_name              :string(255)
 #
 # Indexes
 #

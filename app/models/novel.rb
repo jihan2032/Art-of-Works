@@ -20,7 +20,10 @@ class Novel < ActiveRecord::Base
   belongs_to :user
 
   # Validations
-  validates :title, :user_id, :category, presence: true
+  validates :title, presence: true
+
+  mount_uploader :cover_photo, NovelCoverPhotoUploader
+
 
   # Methods
   def self.has_chapters

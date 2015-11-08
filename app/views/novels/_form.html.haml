@@ -1,0 +1,18 @@
+= form_for @novel, html: { class: "main-content new-novel-form padded-form" } do |f|
+  = error_messages_for(@novel)
+  = f.hidden_field :user_id, value: current_user.id
+  %legend Create Novel
+  .form-group
+    = f.label :cover_photo, "Novel Cover Image"
+    = f.file_field :cover_photo, required: true, class: 'form-control'
+  .form-group
+    = f.label :title, "Title"
+    = f.text_field :title, required: true, placeholder: 'Novel Title', class: 'form-control'
+  .form-group
+    = f.label :abstract, "Description"
+    = f.text_field :abstract, required: true, placeholder: 'Brief description about the novel', class: 'form-control'
+  .row
+    .col-sm-4.col-sm-offset-8
+      = f.submit "Create Novel", class: "btn btn-primary"
+      = link_to "Cancel", root_path, class: "btn btn-secondry"
+    / .col-sm-4.col-sm-offset-9

@@ -19,6 +19,7 @@ gem 'autoprefixer-rails'
 gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'haml-rails'
+gem 'mini_magick'
 
 group :development, :staging, :test do
   gem 'factory_girl_rails'

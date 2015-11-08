@@ -3,7 +3,7 @@ class NovelsController < ApplicationController
   before_action :set_novel, only: [ :show, :edit, :update, :display_novel ]
 
   def index
-    @novels = Novel.order(likes: :desc)
+    @novels = Novel.order(likes: :desc).page params[:page]
   end
 
   def new
@@ -13,7 +13,6 @@ class NovelsController < ApplicationController
   def create
     @novel = Novel.new novels_params
     if @novel.save
-      current_user.novels << @novel
       redirect_to novel_path(@novel), notice: 'Novel was successfully created.'
     else
       render :new
@@ -43,7 +42,7 @@ class NovelsController < ApplicationController
 
 private
   def set_novel
-    @novel = novel.find params[:id]
+    @novel = Novel.find params[:id]
   end
 
 private
