@@ -34,3 +34,7 @@
         .slider.slider-1
         .slider.slider-2
         .slider.slider-3
+
+= javascript_tag do
+  jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
+

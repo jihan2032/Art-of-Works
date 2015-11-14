@@ -3,11 +3,36 @@ class NovelsController < ApplicationController
   before_action :set_novel, only: [ :show, :edit, :update, :display_novel ]
 
   def index
-    @novels = Novel.order(likes: :desc).page params[:page]
+    if params[:filter].present?
+      if params[:filter] == 'random'
+        @novels = Novel.page params[:page]
+      elsif params[:filter] == 'recent'
+        @novels = Novel.order(updated_at: :desc).page params[:page]
+      end
+    else
+      @novels = Novel.order(likes: :desc).page params[:page]
+    end
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def search
-    @novels = Novel.search(params[:search])
+    if params[:filter].present?
+      if params[:filter] == 'random'
+        @novels = Novel.page params[:page]
+      elsif params[:filter] == 'recent'
+        @novels = Novel.order(updated_at: :desc).page params[:page]
+      end
+    else
+      @novels = Novel.order(likes: :desc).page params[:page]
+    end
+    respond_to do |format|
+      format.js
+      format.html
+    end
+    @novels = Novel.all.page params[:page] #Novel.search(params[:search])
   end
 
   def new
