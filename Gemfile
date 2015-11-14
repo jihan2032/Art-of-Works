@@ -30,6 +30,7 @@ gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'mini_magick'
+gem 'searchkick'
 
 group :development, :staging, :test do
   gem 'factory_girl_rails'

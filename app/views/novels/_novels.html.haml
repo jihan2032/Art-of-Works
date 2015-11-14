@@ -1,0 +1,30 @@
+.row.cards-list
+  .col-sm-4.col-sm-offset-8.list-filter.text-center
+    %ol.breadcrumb
+      %li
+        %a{:href => "#"} Most Recent
+      %li
+        %a{:href => "#"} Random
+      %li.active Most Popular
+  .col-sm-12
+    / - 10.times do
+    - @novels.each do |novel|
+      .card
+        .media
+          = link_to novel_path(novel), class: 'media-left' do
+            = image_tag novel.cover_photo.square, class: 'media-object'
+          .media-body
+            %p.label.danger 18+
+            = link_to novel_path(novel) do
+              %h4.media-heading= novel.title
+            %p.description= novel.abstract
+            %p.extra-info
+              %span #Tracks: 5
+              %span.tags.pull-right
+                %i genre-1
+                %i genre-2
+                %i genre-3
+  .col-sm-12.text-center
+    %nav
+      %ul.pagination
+        = paginate @novels

@@ -6,7 +6,7 @@ class NovelCoverPhotoUploader < BaseUploader
   end
 
   version :profile do
-    process resize_to_fill: [200, 200]
+    process resize_to_fill: [260, 260]
   end
 
   version :square do

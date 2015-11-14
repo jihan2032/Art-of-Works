@@ -40,9 +40,13 @@ class User < ActiveRecord::Base
   has_many :liked_chapters, class_name: 'Chapter'
 
   # Validations
-  # validates :first_name, :last_name, presence: true
+  validates :user_name, presence: true
 
   mount_uploader :profile_picture, ProfilePictureUploader
 
+  # Methods
+  def name
+    "#{user_name.titleize}"
+  end
 
 end
