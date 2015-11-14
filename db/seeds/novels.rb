@@ -6,5 +6,5 @@ for i in 0..20
   Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla."
   novel.user_id = 1
   novel.category = "cat#{i}"
-  novel.save
+  puts novel.save
 end
