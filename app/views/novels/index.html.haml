@@ -13,6 +13,7 @@
         Add New Novel
         %i.fa.fa-plus
     - if @novels.any?
-      = render 'novels'
+      .novels_part
+        = render 'novels'
     - else
       %h4 No novels created yet

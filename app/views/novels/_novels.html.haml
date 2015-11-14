@@ -1,13 +1,14 @@
 .row.cards-list
-  .col-sm-4.col-sm-offset-8.list-filter.text-center
-    %ol.breadcrumb
-      %li
-        %a{:href => "#"} Most Recent
-      %li
-        %a{:href => "#"} Random
-      %li.active Most Popular
+  - if action_name == 'index'
+    .col-sm-4.col-sm-offset-8.list-filter.text-center
+      %ol.breadcrumb
+        %li.recent
+          = link_to 'Most Recent', novels_path(filter: 'recent'), remote: true
+        %li.random
+          = link_to 'Random', novels_path(filter: 'random'), remote: true
+        %li.popular.active_filter
+          = link_to 'Most Popular', novels_path, remote: true
   .col-sm-12
-    / - 10.times do
     - @novels.each do |novel|
       .card
         .media
