@@ -23,6 +23,10 @@
               %span
                 Author:
                 = link_to novel.user.name, user_path(novel.user)
+              %br
+              %span
+                Likes:
+                = novel.likes
               %span.tags.pull-right
                 %i genre-1
                 %i genre-2
