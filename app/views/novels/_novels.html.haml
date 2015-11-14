@@ -20,7 +20,9 @@
               %h4.media-heading= novel.title
             %p.description= novel.abstract
             %p.extra-info
-              %span #Tracks: 5
+              %span
+                Author:
+                = link_to novel.user.name, user_path(novel.user)
               %span.tags.pull-right
                 %i genre-1
                 %i genre-2

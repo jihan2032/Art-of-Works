@@ -14,6 +14,9 @@
           = error_messages_for(resource)
           %legend Sign up
           .form-group
+            = f.label :profile_picture, "Profile Picture"
+            = f.file_field :profile_picture, required: true, class: 'form-control'
+          .form-group
             = f.label :user_name, "Display Name"
             = f.text_field :user_name, autofocus: true, required: true, placeholder: 'Display Name', class: 'form-control'
             %p.help-block The name that other memebers will see.
