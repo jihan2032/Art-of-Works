@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def like_chapter
     if params[:chapter_id].present?
-      @user.liked_chapters << Chapter.find params[:chapter_id]
+      @user.liked_chapters << Chapter.find(params[:chapter_id])
     end
   end
 

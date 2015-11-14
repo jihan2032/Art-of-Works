@@ -6,10 +6,8 @@
       .col-sm-12
         %ol.breadcrumb
           %li
-            %a{:href => "#"} Home
-          %li
-            %a{:href => "#"} Library
-          %li.active Data
+            = link_to 'Home', root_path
+          %li.active Novels
     .row
       .col-sm-4.col-sm-offset-8.list-filter.text-center
         %ol.breadcrumb

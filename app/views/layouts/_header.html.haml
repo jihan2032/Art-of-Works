@@ -33,7 +33,7 @@
               %li
                 %a{:href => "#"} Contact
             .col-sm-3.col-md-3.navbar-search
-              %form{:role => "search"}
+              = form_tag search_novels_path, method: :patch, remote: true, id: "search_form" do
                 .input-group
                   %input#srch-term.form-control{:name => "srch-term", :placeholder => "Author / Title / Genre", :type => "text"}/
                   .input-group-btn

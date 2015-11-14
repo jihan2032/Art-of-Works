@@ -7,7 +7,7 @@ class NovelsController < ApplicationController
   end
 
   def search
-    @novels = Novel.order(likes: :desc).page params[:page]
+    @novels = Novel.search(params[:search])
   end
 
   def new

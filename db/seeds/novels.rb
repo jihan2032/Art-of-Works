@@ -7,5 +7,4 @@ for i in 0..20
   novel.user_id = 1
   novel.category = "cat#{i}"
   novel.save
-  puts i
 end
