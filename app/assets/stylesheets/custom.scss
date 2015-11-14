@@ -2,3 +2,77 @@
   before: none;
   text-decoration: underline;
 }
+
+.container_readings{
+  width: 1150px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.container_readings .img_profile{
+  float: left;
+  width: 270px;
+  height: 300px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 15px 0 15px 15px;
+}
+
+.container_readings ul{
+  padding-right: 550px;
+  list-style:none;
+  float: right;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  background-color: inherit;
+}
+
+.img_reading{
+  width: 185px;
+  height: 185px;
+}
+.my_readings_container{
+  width: 100%;
+  height: 380px;
+}
+
+.my_readings{
+  width: 1150px;
+  margin: 0 auto;
+}
+.my_readings ul{
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.my_readings li{
+  display: inline-block;
+  background-color: inherit;
+  margin:5px 115px 5px 0;
+  width:20%;
+  padding: 5px 5px;
+}
+.my_readings li a{
+  color: #000;
+}
+.my_readings legend{
+  font-size: 25px;
+  padding: 5px 10px;
+}
+
+.view_more{
+  float: right;
+}
+
+.clear-fix {
+  clear:both;
+}
+
+.img_profile, .my_readings,.container_readings::after {
+  clear: both;
+}

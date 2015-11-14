@@ -1,0 +1,29 @@
+.container
+  .row
+    .col-sm-12.page-title
+      %h1
+    .col-sm-12
+      %ol.breadcrumb
+        %li
+          = link_to 'Home', root_path
+        %li.active= @user.name
+  .clear-fix
+  .container_readings
+    = image_tag @user.profile_picture.profile, class: 'img_profile'
+    %ul
+      %li= @user.user_name
+      %li Birthdate
+      %li= @user.email
+      %li website
+  .clear_fix
+  .my_readings_container
+    .my_readings
+      %legend My Readings
+      %ul
+        - Novel.all.first(3).each do |novel|
+          %li
+            = link_to novel_path(novel) do
+              = image_tag novel.cover_photo.square, class: 'img_reading'
+              %span= novel.title
+      %a.view_more{:href => "#"} view more
+
