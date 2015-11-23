@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
 #  name       :string(255)
@@ -8,5 +8,5 @@
 #  updated_at :datetime         not null
 #
 
-class Category < ActiveRecord::Base
+class Genre < ActiveRecord::Base
 end

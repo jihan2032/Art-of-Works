@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
 #  name       :string(255)
@@ -9,7 +9,7 @@
 #
 
 FactoryGirl.define do
-  factory :category do
+  factory :genre do
     name "MyString"
   end
 
