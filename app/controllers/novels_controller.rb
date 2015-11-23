@@ -1,6 +1,6 @@
 class NovelsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
-  before_action :set_novel, only: [ :show, :edit, :update, :display_novel ]
+  before_action :set_novel, only: [ :show, :edit, :update ]
 
   def index
     if params[:filter].present?
@@ -19,6 +19,18 @@ class NovelsController < ApplicationController
   end
 
   def search
+    keyword = params[:search]
+    keyword_type = 'title'
+    keyword_type = 'author'
+    if keyword.present?
+      @novels = Novel.search(keyword)
+      @authors = User.search(keyword)
+      if @novels.any?
+        @title = true
+      elsif @authors.any?
+        @author = true
+      end
+    end
     if params[:filter].present?
       if params[:filter] == 'random'
         @novels = Novel.page params[:page]

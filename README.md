@@ -26,3 +26,10 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 `rake doc:app`.
+
+
+display chapter no
+arrow to display the sequencial chapters "bet levels"
+best liked track of chapters
+view depends on overall likes
+read

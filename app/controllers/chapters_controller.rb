@@ -15,7 +15,7 @@ class ChaptersController < ApplicationController
   def create
     @chapter = Chapter.new chapters_params
     if @chapter.save
-      redirect_to novel_path(@chapter.novel, chapter_no: @chapter.chapter_no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully created.'
+      redirect_to novel_path(@chapter.novel.id, chapter_no: @chapter.chapter_no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully created.'
     else
       render :new
     end
