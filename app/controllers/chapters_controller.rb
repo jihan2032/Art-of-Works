@@ -52,7 +52,8 @@ private
       :novel_id,
       :chapter_no,
       :parent_id,
-      :user_id
+      :user_id,
+      :content
     )
   end
 
