@@ -22,6 +22,7 @@ class ChaptersController < ApplicationController
   end
 
   def show
+    @current_chapter = Chapter.find(params[:id])
   end
 
   def edit
@@ -52,7 +53,8 @@ private
       :novel_id,
       :chapter_no,
       :parent_id,
-      :user_id
+      :user_id,
+      :content
     )
   end
 
