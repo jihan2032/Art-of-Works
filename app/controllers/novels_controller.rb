@@ -23,28 +23,41 @@ class NovelsController < ApplicationController
     keyword_type = 'title'
     keyword_type = 'author'
     if keyword.present?
-      @novels = Novel.search(keyword)
-      @authors = User.search(keyword)
-      if @novels.any?
-        @title = true
-      elsif @authors.any?
-        @author = true
+      # search by genre
+      if Genre.pluck(:name).include? keyword.downcase
+        @novels = Genre.where(name: keyword.downcase).first.novels
+        @genre = true
+      else
+        # search by title
+        @novels = Novel.search(keyword)
+        if @novels.any?
+          @title = true
+        # search by author
+        elsif User.search(keyword).any?
+          @authors = User.search(keyword)
+          @novels  = Novel.where(user_id: @authors)
+          @author  = true
+        end
       end
     end
+    # Genre filter
+    if params[:genre].present?
+
+    end
+    # sorting novels after search
     if params[:filter].present?
       if params[:filter] == 'random'
-        @novels = Novel.page params[:page]
+        @novels = @novels.page params[:page]
       elsif params[:filter] == 'recent'
-        @novels = Novel.order(updated_at: :desc).page params[:page]
+        @novels = @novels #.order(updated_at: :desc).page params[:page]
       end
-    else
-      @novels = Novel.order(likes: :desc).page params[:page]
+    elsif @novels.any?
+      @novels = @novels#.order(likes: :desc).page params[:page]
     end
     respond_to do |format|
       format.js
       format.html
     end
-    @novels = Novel.all.page params[:page] #Novel.search(params[:search])
   end
 
   def new

@@ -12,6 +12,7 @@
 #  abstract    :text(65535)
 #  likes       :integer          default(0)
 #  reads       :integer          default(0)
+#  genre_id    :integer
 #
 
 require 'rails_helper'

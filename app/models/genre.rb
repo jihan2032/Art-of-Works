@@ -9,4 +9,6 @@
 #
 
 class Genre < ActiveRecord::Base
+  # Relations
+  has_many :novels
 end
