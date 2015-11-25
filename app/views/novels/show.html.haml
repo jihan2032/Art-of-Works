@@ -29,11 +29,15 @@
             %p.likes
               Likes:
               = @novel.likes
-    .row
+    .rows
       .col-sm-8.col-sm-offset-2
-        .slider.slider-1
-        .slider.slider-2
-        .slider.slider-3
+      -if @novel.chapters.any?
+        -@grouped_chapters.keys.each do|chapter_no|
+          .slider{:class => '.slider-#{chapter_no}'}
+          -@grouped_chapters[chapter_no].each do|chapter|
+            .slide
+              .slide-content
+                %h3 chapter.title
 
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
