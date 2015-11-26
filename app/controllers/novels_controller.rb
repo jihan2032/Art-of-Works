@@ -80,6 +80,10 @@ class NovelsController < ApplicationController
       @displayed_chapter = params[:chapter_version_id].present? ? Chapter.find(params[:chapter_version_id]) : @current_chapters.first
       @after_chapters    = Chapter.where(parent_id: @displayed_chapter.id)
     end
+    #nadine
+    if @novel.chapters.any?
+      @grouped_chapters = @novel.chapters.group_by(&:chapter_no);
+    end
   end
 
   def edit
