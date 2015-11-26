@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources  :novels do
     resources  :chapters
     collection do
-      get :search
+      patch :search
     end
   end
 

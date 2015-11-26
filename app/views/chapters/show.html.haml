@@ -1,0 +1,22 @@
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            = link_to 'Home', root_path
+          %li
+            = link_to 'Novels', root_path
+          %li.active= @novel.title
+    = link_to "Add", root_path, class: "btn btn-primary"
+    = link_to "Replace", root_path, class: "btn btn-secondry"
+    .row.about-novel
+      .col-sm-9
+        .chapter-title
+          %h1= @chapter.title
+        .chapter-abstract
+          %p= @chapter.abstract
+        .chapter-content
+          %p= @chapter.content

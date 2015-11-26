@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108172705) do
+ActiveRecord::Schema.define(version: 20151123130109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,14 +23,15 @@ ActiveRecord::Schema.define(version: 20151108172705) do
   end
 
   create_table "chapters", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "chapter_no", default: 1
-    t.integer  "parent_id",  default: 0
-    t.integer  "novel_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "user_id"
-    t.text     "abstract"
+    t.string   "title",      limit: 255
+    t.integer  "chapter_no", limit: 4,     default: 1
+    t.integer  "parent_id",  limit: 4,     default: 0
+    t.integer  "novel_id",   limit: 4
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "user_id",    limit: 4
+    t.text     "abstract",   limit: 65535
+    t.text     "content",    limit: 65535
   end
 
   create_table "liked_chapters", force: :cascade do |t|
