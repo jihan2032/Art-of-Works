@@ -5,8 +5,8 @@ class ChaptersController < ApplicationController
 
   def new
     @chapter = Chapter.new
-    if params[:parent_chapter_id].present?
-      parent              = Chapter.find params[:parent_chapter_id]
+    if params[:parent_chapter_id].present? && params[:parent_chapter_id] != '0'
+      parent              = Chapter.find params[:parent_chapter_id] 
       @chapter.parent_id  = parent.id
       @chapter.chapter_no = parent.chapter_no + 1
     end

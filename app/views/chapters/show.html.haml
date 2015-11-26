@@ -10,8 +10,9 @@
           %li
             = link_to 'Novels', root_path
           %li.active= @novel.title
-    = link_to "Add", root_path, class: "btn btn-primary"
-    = link_to "Replace", root_path, class: "btn btn-secondry"
+    = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.id), class: "btn btn-primary"
+    = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.parent_id), class: "btn btn-secondry"
+    = link_to "Like", like_chapter_users_path, class: "btn btn-danger"
     .row.about-novel
       .col-sm-9
         .chapter-title
