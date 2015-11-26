@@ -3,7 +3,7 @@
 # Table name: chapters
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
+#  title      :string
 #  chapter_no :integer          default(1)
 #  parent_id  :integer          default(0)
 #  novel_id   :integer
