@@ -1,0 +1,11 @@
+- if current_user.like_chapter?(@chapter)
+  = link_to "unlike", unlike_chapter_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+- else
+  = link_to "Like", like_chapter_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+- if current_user.read_chapter?(@chapter)
+  = link_to "Remove from my readings", remove_from_readings_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+- else
+  = link_to "Add to my readings", add_to_readings_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+- if @chapter.children.any?
+  - @chapter.children.each do |child_chapter|
+    = link_to "Chapter #{chapter.title}", novel_chapter_path(@novel, child_chapter), class: "btn btn-secondry"

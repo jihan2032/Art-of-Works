@@ -9,14 +9,13 @@
             = link_to 'Home', root_path
           %li
             = link_to 'Novels', root_path
-          %li.active= @novel.title
+          %li
+            = link_to @novel.title, novel_path(@novel)
+          %li.active= @chapter.title
     = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.id), class: "btn btn-primary"
     = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.parent_id), class: "btn btn-secondry"
-    = link_to "Like", like_chapter_users_path, class: "btn btn-danger"
-    = link_to "Add to my readings", add_to_readings_users_path, class: "btn btn-danger"
-    -if @chapter.children.any?
-      -@chapter.children.each do |child_chapter|
-        = link_to "Chapter"= chapter.title, novel_chapter_path(@novel, child_chapter), class: "btn btn-secondry"
+    .chapter_actions
+      = render 'chapter_actions'
     .row.about-novel
       .col-sm-9
         .chapter-title

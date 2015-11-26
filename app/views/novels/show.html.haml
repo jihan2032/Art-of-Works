@@ -30,39 +30,8 @@
               Likes:
               = @novel.likes
     -if @novel.chapters.any?
-      .row
-        -@grouped_chapters.each do |key, value|
-          .col-sm-2
-            %h5.v-center
-              Chapter
-              = key
-              Versions
-          .col-sm-10
-            .slider{:class => '.slider-' + key.to_s, "data-chapter-number" => key.to_s}
-              -value.each do|chapter|
-                .slide
-                  .slide-content
-                    %h5
-                    = chapter.title
-                    .extra-info
-                      .row.text-center
-                        %p.col-sm-2
-                          Author:
-                          .col-sm-4
-                            = link_to chapter.user.name, user_path(chapter.user.name), class: 'author'
-                      .row
-                        %p.date.col-sm-2
-                          Created at:
-                          .col-sm-4
-                            = l chapter.created_at.to_date, format: :long
-                      .row
-                        %p.likes.col-sm-2
-                          = chapter.likes
-                          .col-sm-4
-                            likes
-                      = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
-                      = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: chapter.parent_id), class: "btn btn-secondry"
-                      = link_to "Like", like_chapter_users_path, class: "btn btn-danger"
+      .novel_chapters
+        = render 'chapters_slider'
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
 

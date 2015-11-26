@@ -10,8 +10,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  abstract    :text(65535)
-#  likes       :integer          default(0)
-#  reads       :integer          default(0)
 #  genre_id    :integer
 #
 
@@ -38,6 +36,22 @@ class Novel < ActiveRecord::Base
   end
 
   def tracks_no
+  end
+
+  def likes
+    likes = 0
+    chapters.each do |chapter|
+      likes = likes + chapter.likes
+    end
+    likes
+  end
+
+  def reads
+    reads = 0
+    chapters.each do |chapter|
+      reads = reads + chapter.reads
+    end
+    reads
   end
 
 end
