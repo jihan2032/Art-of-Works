@@ -1,7 +1,7 @@
 class ChaptersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :set_chapter, only: [ :show, :edit, :update ]
-  before_action :set_novel, only: [ :show, :edit, :update ]
+  before_action :set_novel, only: [ :show, :edit, :update, :new ]
 
   def new
     @chapter = Chapter.new

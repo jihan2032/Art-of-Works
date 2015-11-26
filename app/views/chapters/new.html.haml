@@ -8,7 +8,7 @@
           %li
             = link_to 'Home', root_path
           %li
-            = @novel.title
+            = link_to @novel.title, novel_path(@novel)
           - if @chapter.parent.present?
             %li
               = @chapter.parent.title
