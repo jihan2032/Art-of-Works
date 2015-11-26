@@ -49,7 +49,7 @@
                         %p.col-sm-2
                           Author:
                           .col-sm-4
-                            = link_to chapter.user.name, user_path(chapter.user.name)
+                            = link_to chapter.user.name, user_path(chapter.user.name), class: 'author'
                       .row
                         %p.date.col-sm-2
                           Created at:
@@ -60,7 +60,9 @@
                           = chapter.likes
                           .col-sm-4
                             likes
-
+                      = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
+                      = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: chapter.parent_id), class: "btn btn-secondry"
+                      = link_to "Like", like_chapter_users_path, class: "btn btn-danger"
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
 

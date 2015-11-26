@@ -3,13 +3,13 @@
 # Table name: novels
 #
 #  id          :integer          not null, primary key
-#  title       :string
+#  title       :string(255)
 #  user_id     :integer
-#  category    :string
-#  cover_photo :string
+#  category    :string(255)
+#  cover_photo :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  abstract    :text
+#  abstract    :text(65535)
 #  likes       :integer          default(0)
 #  reads       :integer          default(0)
 #  genre_id    :integer
