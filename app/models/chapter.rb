@@ -12,6 +12,8 @@
 #  user_id    :integer
 #  abstract   :text(65535)
 #  content    :text(65535)
+#  likes      :integer          default(0)
+#  reads      :integer          default(0)
 #
 
 class Chapter < ActiveRecord::Base
@@ -20,6 +22,9 @@ class Chapter < ActiveRecord::Base
   has_many   :read_chapters
   belongs_to :novel
   belongs_to :user
+  belongs_to :parent, class_name: 'Chapter'
+  has_many   :children, class_name: 'Chapter', foreign_key: 'parent_id'
+
 
   # Validations
   validates :title, presence: true

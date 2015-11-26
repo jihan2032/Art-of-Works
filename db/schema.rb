@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123130109) do
+ActiveRecord::Schema.define(version: 20151126110522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20151123130109) do
     t.integer  "user_id",    limit: 4
     t.text     "abstract",   limit: 65535
     t.text     "content",    limit: 65535
+    t.integer  "likes",      limit: 4,     default: 0
+    t.integer  "reads",      limit: 4,     default: 0
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "liked_chapters", force: :cascade do |t|
@@ -42,15 +50,16 @@ ActiveRecord::Schema.define(version: 20151123130109) do
   end
 
   create_table "novels", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "user_id"
-    t.string   "category"
-    t.string   "cover_photo"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.text     "abstract"
-    t.integer  "likes",       default: 0
-    t.integer  "reads",       default: 0
+    t.string   "title",       limit: 255
+    t.integer  "user_id",     limit: 4
+    t.string   "category",    limit: 255
+    t.string   "cover_photo", limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.text     "abstract",    limit: 65535
+    t.integer  "likes",       limit: 4,     default: 0
+    t.integer  "reads",       limit: 4,     default: 0
+    t.integer  "genre_id",    limit: 4
   end
 
   create_table "read_chapters", force: :cascade do |t|

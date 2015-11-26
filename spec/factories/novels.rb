@@ -12,6 +12,7 @@
 #  abstract    :text
 #  likes       :integer          default(0)
 #  reads       :integer          default(0)
+#  genre_id    :integer
 #
 
 FactoryGirl.define do

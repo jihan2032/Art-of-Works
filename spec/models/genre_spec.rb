@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -10,6 +10,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
+RSpec.describe Genre, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

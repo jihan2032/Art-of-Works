@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -8,9 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
-  factory :category do
-    name "MyString"
-  end
-
+class Genre < ActiveRecord::Base
+  # Relations
+  has_many :novels
 end

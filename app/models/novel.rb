@@ -12,6 +12,7 @@
 #  abstract    :text
 #  likes       :integer          default(0)
 #  reads       :integer          default(0)
+#  genre_id    :integer
 #
 
 class Novel < ActiveRecord::Base
@@ -21,6 +22,7 @@ class Novel < ActiveRecord::Base
   # Relations
   has_many   :chapters
   belongs_to :user
+  belongs_to :genre
 
   # Validations
   validates :title, presence: true
