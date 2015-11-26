@@ -3,7 +3,10 @@
     = image_tag @novel.cover_photo.profile
   .col-sm-9
     .novel-heading
-      %p.label.danger 18+
+      - if @novel.above_18
+        %p.label.danger 18+
+      - else
+        %p.label.safe suitable 4 all
       %h1= @novel.title
     .novel-description
       %p= @novel.abstract
@@ -17,6 +20,13 @@
         %p.likes
           Likes:
           = @novel.likes
+        %p.genres
+          Genres:
+          %span.tags
+            - @novel.genres.each do |genre|
+              %i= genre.name.titleize
+        - if @novel.author?(current_user) && @novel.chapters.empty?
+          = link_to "Create the first chapter", new_novel_chapter_path(@novel), class: "btn btn-secondry"
 -if @novel.chapters.any?
   .row
     - @grouped_chapters.each do |key, value|

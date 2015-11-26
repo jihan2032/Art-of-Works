@@ -11,6 +11,7 @@
 #  updated_at  :datetime         not null
 #  abstract    :text(65535)
 #  genre_id    :integer
+#  above_18    :boolean          default(FALSE)
 #
 
 class Novel < ActiveRecord::Base
@@ -54,6 +55,10 @@ class Novel < ActiveRecord::Base
       reads = reads + chapter.reads
     end
     reads
+  end
+
+  def author?(current_user)
+    user == current_user
   end
 
 end
