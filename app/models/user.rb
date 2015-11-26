@@ -55,5 +55,11 @@ class User < ActiveRecord::Base
     Novel.where(id: Chapter.where(id: read_chapters.pluck(:chapter_id)).pluck(:novel_id))
   end
 
+  def like_chapter?(chapter)
+    LikedChapter.where(user_id: id, chapter_id: chapter.id).any?
+  end
 
+  def read_chapter?(chapter)
+    ReadChapter.where(user_id: id, chapter_id: chapter.id).any?
+  end
 end

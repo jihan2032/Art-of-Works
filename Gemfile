@@ -17,11 +17,8 @@ end
 
 group :production do
   gem 'unicorn'
-  gem 'pg'
-end
-
-group :production do 
   gem 'unicorn-worker-killer'
+  gem 'pg'
 end
 
 gem 'autoprefixer-rails'

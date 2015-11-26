@@ -1,6 +1,7 @@
 class NovelsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
-  before_action :set_novel, only: [ :show, :edit, :update ]
+  before_action :set_novel, only: [ :show, :edit, :update, :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
+  before_action :set_chapter_and_user, only: [ :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
 
   def index
     if params[:filter].present?
@@ -98,9 +99,53 @@ class NovelsController < ApplicationController
     end
   end
 
+  def like_chapter
+    if @chapter.present?
+      LikedChapter.create(user_id: @user.id, chapter_id: @chapter.id)
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unlike_chapter
+    if @chapter.present?
+      LikedChapter.where(user_id: @user.id, chapter_id: @chapter.id).first.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_to_readings
+    if @chapter.present?
+      ReadChapter.create(user_id: @user.id, chapter_id: @chapter.id)
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def remove_from_readings
+    if @chapter.present?
+      ReadChapter.where(user_id: @user.id, chapter_id: @chapter.id).first.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 private
   def set_novel
     @novel = Novel.find params[:id]
+    if @novel.chapters.any?
+      @grouped_chapters = @novel.chapters.group_by(&:chapter_no);
+    end
+  end
+
+  def set_chapter_and_user
+    @chapter = Chapter.find(params[:chapter_id])
+    @user    = current_user
   end
 
 private

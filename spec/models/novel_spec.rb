@@ -10,8 +10,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  abstract    :text(65535)
-#  likes       :integer          default(0)
-#  reads       :integer          default(0)
 #  genre_id    :integer
 #
 

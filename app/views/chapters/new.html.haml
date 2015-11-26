@@ -11,8 +11,10 @@
             = link_to @novel.title, novel_path(@novel)
           - if @chapter.parent.present?
             %li
-              = @chapter.parent.title
-          %li.active Create Chapter
+              = link_to @chapter.parent.title, novel_chapter_path(@novel, @chapter.parent)
+            %li.active=  "Create Chapter #{@chapter.parent.chapter_no + 1}"
+          - else
+            %li.active Create Chapter 1
     .row
       .col-sm-8.col-sm-offset-2
         = render 'form'
