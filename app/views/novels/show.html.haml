@@ -34,7 +34,7 @@
         -@grouped_chapters.each do |key, value|
           .col-sm-2
             %h5.v-center
-              Chapter 
+              Chapter
               = key
               Versions
           .col-sm-10
@@ -42,19 +42,24 @@
               -value.each do|chapter|
                 .slide
                   .slide-content
-                    %h5 
+                    %h5
                     = chapter.title
                     .extra-info
-                      %p
-                        Author:
-                        %a.author{:href => "#"} 
-                        = chapter.user.user_name
-                      %p.date
-                        Created at:
-                        = chapter.created_at
-                      %p.likes 
-                        = chapter.liked_chapters.count
-                        likes
+                      .row.text-center
+                        %p.col-sm-2
+                          Author:
+                          .col-sm-4
+                            = link_to chapter.user.name, user_path(chapter.user.name)
+                      .row
+                        %p.date.col-sm-2
+                          Created at:
+                          .col-sm-4
+                            = l chapter.created_at.to_date, format: :long
+                      .row
+                        %p.likes.col-sm-2
+                          = chapter.likes
+                          .col-sm-4
+                            likes
 
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
