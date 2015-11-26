@@ -1,0 +1,13 @@
+---
+User_1:
+  id: 1
+  email: fathy@gmail.com
+  encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
+  sign_in_count: 2
+  current_sign_in_at: 2015-11-26 10:16:28.000000000 Z
+  last_sign_in_at: 2015-11-26 10:14:48.000000000 Z
+  current_sign_in_ip: "::1"
+  last_sign_in_ip: "::1"
+  created_at: 2015-11-25 14:20:08.000000000 Z
+  updated_at: 2015-11-26 10:16:28.000000000 Z
+  user_name: Ahmed Fathy
