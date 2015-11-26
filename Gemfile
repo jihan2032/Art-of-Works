@@ -21,7 +21,6 @@ group :production do
 end
 
 group :production do 
-  gem 'unicorn'
   gem 'unicorn-worker-killer'
 end
 
