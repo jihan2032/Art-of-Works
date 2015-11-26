@@ -16,7 +16,7 @@
 
 class Chapter < ActiveRecord::Base
   # Relations
-  has_many   :likes_chapters
+  has_many   :liked_chapters
   has_many   :read_chapters
   belongs_to :novel
   belongs_to :user
