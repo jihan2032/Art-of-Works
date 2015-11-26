@@ -11,7 +11,12 @@
             = link_to 'Novels', root_path
           %li
             = link_to @novel.title, novel_path(@novel)
-          %li.active= @chapter.title
+          - if @chapter.parent
+            %li
+              = "..."
+            %li
+              = link_to @chapter.parent.title, novel_chapter_path(@novel, @chapter.parent)
+            %li.active= @chapter.title
     = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.id), class: "btn btn-primary"
     = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.parent_id), class: "btn btn-secondry"
     .chapter_actions

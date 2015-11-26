@@ -12,7 +12,7 @@ class NovelsController < ApplicationController
         @novels = Novel.order(updated_at: :desc).page params[:page]
       end
     else
-      @novels = Kaminari.paginate_array(Novel.all.sort_by(&:likes)).page params[:page]
+      @novels = Kaminari.paginate_array(Novel.all.sort_by(&:likes).reverse).page params[:page]
     end
     respond_to do |format|
       format.js
@@ -69,7 +69,7 @@ class NovelsController < ApplicationController
   def create
     @novel = Novel.new novels_params
     if @novel.save
-      redirect_to new_novel_chapter_path(@novel), notice: 'Please write your first chapter to complete your novel creation'
+      redirect_to new_novel_chapter_path(@novel), notice: 'Please write the first chapter to complete your novel creation'
     else
       render :new
     end
@@ -150,6 +150,7 @@ private
   end
 
   def authenticate_author
+    @novel = Novel.find params[:id]
     if @novel.user != current_user
       redirect_to root_path, alert: 'You are not authorized to do such action'
     end
@@ -162,6 +163,7 @@ private
       :cover_photo,
       :abstract,
       :user_id,
+      :above_18,
       :genre_ids => []
     )
   end

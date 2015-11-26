@@ -15,7 +15,10 @@
           = link_to novel_path(novel), class: 'media-left' do
             = image_tag novel.cover_photo.square, class: 'media-object'
           .media-body
-            %p.label.danger 18+
+            - if novel.above_18
+              %p.label.danger 18+
+            - else
+              %p.label.safe suitable 4 all
             = link_to novel_path(novel) do
               %h4.media-heading= novel.title
             %p.description= novel.abstract
@@ -28,9 +31,8 @@
                 Likes:
                 = novel.likes
               %span.tags.pull-right
-                %i genre-1
-                %i genre-2
-                %i genre-3
+                - novel.genres.each do |genre|
+                  %i= genre.name.titleize
   .col-sm-12.text-center
     %nav
       %ul.pagination

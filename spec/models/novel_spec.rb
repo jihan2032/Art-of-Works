@@ -11,6 +11,7 @@
 #  updated_at  :datetime         not null
 #  abstract    :text(65535)
 #  genre_id    :integer
+#  above_18    :boolean          default(FALSE)
 #
 
 require 'rails_helper'

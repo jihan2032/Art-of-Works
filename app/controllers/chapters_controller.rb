@@ -5,15 +5,17 @@ class ChaptersController < ApplicationController
 
   def new
     @chapter = Chapter.new
-    if params[:parent_chapter_id].present? && params[:parent_chapter_id] != '0'
-      parent              = Chapter.find params[:parent_chapter_id]
-      @chapter.parent_id  = parent.id
-      @chapter.chapter_no = parent.chapter_no + 1
-    end
+    session[:parent_chapter_id] = params[:parent_chapter_id]
   end
 
   def create
     @chapter = Chapter.new chapters_params
+    if session[:parent_chapter_id].present? && session[:parent_chapter_id] != '0'
+      parent              = Chapter.find session[:parent_chapter_id]
+      @chapter.parent     = parent
+      @chapter.chapter_no = parent.chapter_no + 1
+      session.delete(:parent_chapter_id)
+    end
     if @chapter.save
       redirect_to novel_path(@chapter.novel.id, chapter_no: @chapter.chapter_no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully created.'
     else
