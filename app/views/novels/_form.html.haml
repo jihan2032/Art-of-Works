@@ -11,8 +11,10 @@
   .form-group
     = f.label :abstract, "Description"
     = f.text_field :abstract, required: true, placeholder: 'Brief description about the novel', class: 'form-control'
+  .form-group
+    = f.label :genre, "Genre"
+    = f.select :genre, Genre.order(:name).map { |genre| [ genre.name.titleize, genre ] }, { placeholder: "Select genre" }, { class: 'form-control' }
   .row
     .col-sm-4.col-sm-offset-8
       = f.submit "Create Novel", class: "btn btn-primary"
       = link_to "Cancel", root_path, class: "btn btn-secondry"
-    / .col-sm-4.col-sm-offset-9
