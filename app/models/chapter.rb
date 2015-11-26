@@ -12,6 +12,8 @@
 #  user_id    :integer
 #  abstract   :text(65535)
 #  content    :text(65535)
+#  likes      :integer          default(0)
+#  reads      :integer          default(0)
 #
 
 class Chapter < ActiveRecord::Base
