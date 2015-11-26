@@ -102,6 +102,7 @@ GEM
     colorize (0.7.7)
     connection_pool (2.2.0)
     database_cleaner (1.5.1)
+    db_fixtures_dump (0.1.1)
     debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -324,6 +325,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   database_cleaner
+  db_fixtures_dump
   devise
   factory_girl_rails
   faker
@@ -349,3 +351,6 @@ DEPENDENCIES
   unicorn
   unicorn-worker-killer
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6
