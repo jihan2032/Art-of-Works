@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
   # Relations
   has_many :novels
   has_many :chapters
-  has_many :read_chapters, class_name: 'Chapter'
-  has_many :liked_chapters, class_name: 'Chapter'
+  has_many :read_chapters
+  has_many :liked_chapters
 
   # Validations
   validates :user_name, presence: true
@@ -50,5 +50,10 @@ class User < ActiveRecord::Base
   def name
     "#{user_name.titleize}"
   end
+
+  def read_novels
+    Novel.where(id: Chapter.where(id: read_chapters.pluck(:chapter_id)).pluck(:novel_id))
+  end
+
 
 end

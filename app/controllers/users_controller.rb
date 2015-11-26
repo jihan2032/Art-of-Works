@@ -20,29 +20,25 @@ class UsersController < ApplicationController
   def like_chapter
     if params[:chapter_id].present?
       chapter = Chapter.find(params[:chapter_id])
-      @user.liked_chapters << chapter
-      chapter.update_attribute(:likes, chapter.likes + 1)
+      LikedChapter.create(user_id: @user.id, chapter_id: chapter.id)
     end
   end
 
   def unlike_chapter
     if params[:chapter_id].present?
-      @user.liked_chapters.delete Chapter.find(params[:chapter_id])
-      chapter.update_attribute(:likes, chapter.likes - 1) if chapter.likes > 0
+      LikedChapter.where(user_id: @user.id, chapter_id: chapter.id).first.destroy
     end
   end
 
   def add_to_readings
     if params[:chapter_id].present?
-      @user.read_chapters << Chapter.find(params[:chapter_id])
-      chapter.update_attribute(:reads, chapter.reads + 1)
+      ReadChapter.create(user_id: @user.id, chapter_id: chapter.id)
     end
   end
 
   def remove_readings
     if params[:chapter_id].present?
-      @user.read_chapters.delete Chapter.find(params[:chapter_id])
-      chapter.update_attribute(:reads, chapter.reads - 1) if chapter.reads > 0
+      ReadChapter.where(user_id: @user.id, chapter_id: chapter.id).first.destroy
     end
   end
 

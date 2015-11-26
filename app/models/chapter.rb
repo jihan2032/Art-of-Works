@@ -12,8 +12,6 @@
 #  user_id    :integer
 #  abstract   :text(65535)
 #  content    :text(65535)
-#  likes      :integer          default(0)
-#  reads      :integer          default(0)
 #
 
 class Chapter < ActiveRecord::Base
@@ -28,4 +26,13 @@ class Chapter < ActiveRecord::Base
 
   # Validations
   validates :title, presence: true
+
+  # Methods
+  def reads
+    ReadChapter.where(chapter_id: id).count
+  end
+
+  def likes
+    LikedChapter.where(chapter_id: id).count
+  end
 end
