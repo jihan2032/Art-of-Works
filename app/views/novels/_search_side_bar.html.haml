@@ -1,22 +1,5 @@
 .col-sm-3.search-filters.main-content.cards-list
   %form.padded-form
-    %legend Search
-    .form-group
-      %input#name.form-control{:placeholder => "Type here", :required => "", :type => "text"}/
-      .checkbox
-        %label
-          %input#author{:name => "author", :type => "checkbox"}/
-          Author
-      .checkbox
-        %label
-          %input#title{:name => "title", :type => "checkbox"}/
-          Title
-      .checkbox
-        %label
-          %input#description{:name => "description", :type => "checkbox"}/
-          Description
-    %button.btn.btn-default{:type => "submit"} Search
-  %form.padded-form
     %legend Filters
     .form-group
       .checkbox

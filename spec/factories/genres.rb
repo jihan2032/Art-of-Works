@@ -1,15 +1,15 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
-  factory :category do
+  factory :genre do
     name "MyString"
   end
 

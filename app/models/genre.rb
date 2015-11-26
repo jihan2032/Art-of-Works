@@ -1,12 +1,14 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: genres
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Category < ActiveRecord::Base
+class Genre < ActiveRecord::Base
+  # Relations
+  has_many :novels
 end

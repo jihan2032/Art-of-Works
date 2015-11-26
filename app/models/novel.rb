@@ -3,15 +3,16 @@
 # Table name: novels
 #
 #  id          :integer          not null, primary key
-#  title       :string(255)
+#  title       :string
 #  user_id     :integer
-#  category    :string(255)
-#  cover_photo :string(255)
+#  category    :string
+#  cover_photo :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  abstract    :text(65535)
+#  abstract    :text
 #  likes       :integer          default(0)
 #  reads       :integer          default(0)
+#  genre_id    :integer
 #
 
 class Novel < ActiveRecord::Base
@@ -21,6 +22,7 @@ class Novel < ActiveRecord::Base
   # Relations
   has_many   :chapters
   belongs_to :user
+  belongs_to :genre
 
   # Validations
   validates :title, presence: true

@@ -3,24 +3,24 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
-#  encrypted_password     :string(255)      default(""), not null
-#  reset_password_token   :string(255)
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
 #  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  first_name             :string(255)
-#  last_name              :string(255)
-#  mobile_number          :string(255)
-#  title                  :string(255)
-#  profile_picture        :string(255)
-#  user_name              :string(255)
+#  first_name             :string
+#  last_name              :string
+#  mobile_number          :string
+#  title                  :string
+#  profile_picture        :string
+#  user_name              :string
 #
 # Indexes
 #
@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
   # Relations
   has_many :novels
   has_many :chapters
-  has_many :read_chapters, class_name: 'Chapter'
-  has_many :liked_chapters, class_name: 'Chapter'
+  has_many :read_chapters
+  has_many :liked_chapters
 
   # Validations
   validates :user_name, presence: true
@@ -50,5 +50,10 @@ class User < ActiveRecord::Base
   def name
     "#{user_name.titleize}"
   end
+
+  def read_novels
+    Novel.where(id: Chapter.where(id: read_chapters.pluck(:chapter_id)).pluck(:novel_id))
+  end
+
 
 end

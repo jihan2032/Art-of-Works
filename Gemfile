@@ -15,6 +15,16 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  gem 'unicorn'
+  gem 'pg'
+end
+
+group :production do 
+  gem 'unicorn'
+  gem 'unicorn-worker-killer'
+end
+
 gem 'autoprefixer-rails'
 gem 'carrierwave'
 gem 'bootstrap-sass'

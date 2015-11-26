@@ -3,7 +3,7 @@
 # Table name: chapters
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
+#  title      :string
 #  chapter_no :integer          default(1)
 #  parent_id  :integer          default(0)
 #  novel_id   :integer
@@ -20,7 +20,19 @@ class Chapter < ActiveRecord::Base
   has_many   :read_chapters
   belongs_to :novel
   belongs_to :user
+  belongs_to :parent, class_name: 'Chapter'
+  has_many   :children, class_name: 'Chapter', foreign_key: 'parent_id'
+
 
   # Validations
   validates :title, presence: true
+
+  # Methods
+  def reads
+    ReadChapter.where(chapter_id: id).count
+  end
+
+  def likes
+    LikedChapter.where(chapter_id: id).count
+  end
 end
