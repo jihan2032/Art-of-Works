@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126161228) do
+ActiveRecord::Schema.define(version: 20151126170557) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20151126161228) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "genres_novels", force: :cascade do |t|
+    t.integer  "genre_id",   limit: 4
+    t.integer  "novel_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "liked_chapters", force: :cascade do |t|

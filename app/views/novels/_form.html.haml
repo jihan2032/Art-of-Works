@@ -13,7 +13,7 @@
     = f.text_field :abstract, required: true, placeholder: 'Brief description about the novel', class: 'form-control'
   .form-group
     = f.label :genre, "Genre"
-    = f.select :genre, Genre.order(:name).map { |genre| [ genre.name.titleize, genre ] }, { placeholder: "Select genre" }, { class: 'form-control' }
+    = f.collection_select :genre_ids, Genre.order(:name), :id, :name_titleized, { prompt: 'Select Genres' }, { multiple: true, id: 'genres_select' }
   .row
     .col-sm-4.col-sm-offset-8
       = f.submit "Create Novel", class: "btn btn-primary"

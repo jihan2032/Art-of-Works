@@ -1,5 +1,6 @@
 class NovelsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
+  before_action :authenticate_author, only: [:edit, :update]
   before_action :set_novel, only: [ :show, :edit, :update, :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
   before_action :set_chapter_and_user, only: [ :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
 
@@ -11,7 +12,7 @@ class NovelsController < ApplicationController
         @novels = Novel.order(updated_at: :desc).page params[:page]
       end
     else
-      @novels = Novel.order(likes: :desc).page params[:page]
+      @novels = Kaminari.paginate_array(Novel.all.sort_by(&:likes)).page params[:page]
     end
     respond_to do |format|
       format.js
@@ -68,7 +69,7 @@ class NovelsController < ApplicationController
   def create
     @novel = Novel.new novels_params
     if @novel.save
-      redirect_to novel_path(@novel), notice: 'Novel was successfully created.'
+      redirect_to new_novel_chapter_path(@novel), notice: 'Please write your first chapter to complete your novel creation'
     else
       render :new
     end
@@ -148,13 +149,20 @@ private
     @user    = current_user
   end
 
+  def authenticate_author
+    if @novel.user != current_user
+      redirect_to root_path, alert: 'You are not authorized to do such action'
+    end
+  end
+
 private
   def novels_params
     params.require(:novel).permit(
       :title,
       :cover_photo,
       :abstract,
-      :user_id
+      :user_id,
+      :genre_ids => []
     )
   end
 end

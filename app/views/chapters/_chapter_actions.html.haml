@@ -5,7 +5,7 @@
 - if current_user.read_chapter?(@chapter)
   = link_to "Remove from my readings", remove_from_readings_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
 - else
-  = link_to "Add to my readings", add_to_readings_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+  = link_to "Add to my readings", add_to_readings_novels_path(chapter_id: @chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
 - if @chapter.children.any?
   - @chapter.children.each do |child_chapter|
     = link_to "Chapter #{chapter.title}", novel_chapter_path(@novel, child_chapter), class: "btn btn-secondry"

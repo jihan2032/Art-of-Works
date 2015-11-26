@@ -10,5 +10,9 @@
 
 class Genre < ActiveRecord::Base
   # Relations
-  has_many :novels
+  has_and_belongs_to_many :novels
+  # Methods
+  def name_titleized
+    name.titleize
+  end
 end

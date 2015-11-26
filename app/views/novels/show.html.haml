@@ -10,28 +10,8 @@
           %li
             = link_to 'Novels', root_path
           %li.active= @novel.title
-    .row.about-novel
-      .col-sm-3.novel-img
-        = image_tag @novel.cover_photo.profile
-      .col-sm-9
-        .novel-heading
-          %p.label.danger 18+
-          %h1= @novel.title
-        .novel-description
-          %p= @novel.abstract
-          .extra-info
-            %p
-              Authored by:
-              = link_to @novel.user.name, user_path(@novel.user), class: 'author'
-            %p.date
-              Created at:
-              = l @novel.created_at.to_date, format: :long
-            %p.likes
-              Likes:
-              = @novel.likes
-    -if @novel.chapters.any?
-      .novel_chapters
-        = render 'chapters_slider'
+    .novel_part
+      = render 'novel_part'
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
 

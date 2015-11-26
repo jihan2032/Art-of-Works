@@ -1,0 +1,56 @@
+.row.about-novel
+  .col-sm-3.novel-img
+    = image_tag @novel.cover_photo.profile
+  .col-sm-9
+    .novel-heading
+      %p.label.danger 18+
+      %h1= @novel.title
+    .novel-description
+      %p= @novel.abstract
+      .extra-info
+        %p
+          Authored by:
+          = link_to @novel.user.name, user_path(@novel.user), class: 'author'
+        %p.date
+          Created at:
+          = l @novel.created_at.to_date, format: :long
+        %p.likes
+          Likes:
+          = @novel.likes
+-if @novel.chapters.any?
+  .row
+    - @grouped_chapters.each do |key, value|
+      .col-sm-2
+        %h5.v-center
+          Chapter
+          = key
+          Versions
+      .col-sm-10
+        .slider{:class => '.slider-' + key.to_s, "data-chapter-number" => key.to_s}
+          - value.each do|chapter|
+            .slide
+              .slide-content
+                %h5
+                = link_to chapter.title, novel_chapter_path(@novel, chapter)
+                .extra-info
+                  .row.text-center
+                    %p.col-sm-2
+                      Author:
+                    .col-sm-2
+                      = link_to chapter.user.name, user_path(chapter.user.name), class: 'author'
+                  .row
+                    %p.date.col-sm-2
+                      Created at:
+                    .col-sm-2
+                      = l chapter.created_at.to_date, format: :long
+                  .row
+                    %p.likes.col-sm-2
+                      = chapter.likes
+                    .col-sm-2
+                      likes
+                  = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
+                  = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: chapter.parent_id), class: "btn btn-secondry"
+                  - if current_user.like_chapter?(chapter)
+                    = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+                  - else
+                    = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
