@@ -62,5 +62,5 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-sidekiq', require: false
 end
-
+gem 'yaml_db'
 gem 'devise'
