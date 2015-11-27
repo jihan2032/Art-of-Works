@@ -22,23 +22,19 @@ class NovelsController < ApplicationController
 
   def search
     keyword = params[:search]
-    keyword_type = 'title'
-    keyword_type = 'author'
     if keyword.present?
       # search by genre
       if Genre.pluck(:name).include? keyword.downcase
         @novels = Genre.where(name: keyword.downcase).first.novels
-        @genre = true
+        @genre = Genre.where(name: keyword.downcase).first
       else
         # search by title
         @novels = Novel.search(keyword)
         if @novels.any?
-          @title = true
         # search by author
         elsif User.search(keyword).any?
           @authors = User.search(keyword)
           @novels  = Novel.where(user_id: @authors.results.map(&:id))
-          @author  = true
         end
       end
     else #nothing in the search box

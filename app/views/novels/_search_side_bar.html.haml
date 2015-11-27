@@ -5,7 +5,10 @@
       - Genre.all.each do |genre|
         .checkbox
           %label
-            = check_box_tag "#{genre.id}", genre.id
+            - if @genre.present? && @genre == genre
+              = check_box_tag "#{genre.id}", genre.id, true
+            - else
+              = check_box_tag "#{genre.id}", genre.id
             = genre.name.titleize
     = hidden_field_tag 'search', params[:search]
     = submit_tag 'Filter', class: 'btn btn-default'
