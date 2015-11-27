@@ -1,6 +1,6 @@
 = form_for @novel, html: { class: "main-content new-novel-form padded-form" } do |f|
   = error_messages_for(@novel)
-  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :user_id, value: current_user.id if current_user
   - if action_name == 'new'
     %legend Create Novel
   - else
