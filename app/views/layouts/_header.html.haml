@@ -52,6 +52,6 @@
                     %span.caret
                   %ul.dropdown-menu{"aria-labelledby" => "profile-menu", :role => "menu"}
                     %li{:role => "presentation"}
-                      %a{:href => "profile.html", :role => "menuitem", :tabindex => "-1"} My Account
+                      = link_to 'My Account', user_path(current_user), {:role => "menuitem", :tabindex => "-1"}
                     %li{:role => "presentation"}
-                      %a{:href => "logout.html", :role => "menuitem", :tabindex => "-1"} Logout
+                      = link_to 'Logout', destroy_user_session_path, {method: :delete, :role => "menuitem", :tabindex => "-1"}

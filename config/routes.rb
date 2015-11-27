@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+    path_names: {
+      sign_in:  :login,
+      sign_out: :logout,
+      sign_up:  :register,
+    }
   resources  :users
   resources  :novels do
     resources  :chapters
     collection do
       patch :search
+    end
+    member do
       patch :like_chapter
       patch :unlike_chapter
       patch :add_to_readings
