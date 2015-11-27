@@ -40,8 +40,8 @@
   .col-sm-11.text-center
     %h3 Chapters
 -if @novel.chapters.any?
-  .row
-    - @grouped_chapters.each do |key, value|
+  - @grouped_chapters.each do |key, value|
+    .row
       .col-sm-2
         %h5.v-center
           Chapter
@@ -77,7 +77,7 @@
                         likes
                   / = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
       .col-sm-1
-        %input{'type' => 'image', 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0)}
+        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-chapter-number' => key}
       / it's unnecessary to display like button in this view
       / - if current_user && current_user.like_chapter?(chapter)
       /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
