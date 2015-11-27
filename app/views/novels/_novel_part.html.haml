@@ -27,6 +27,9 @@
               %i= genre.name.titleize
         - if @novel.author?(current_user) && @novel.chapters.empty?
           = link_to "Create the first chapter", new_novel_chapter_path(@novel), class: "btn btn-secondry"
+.row.chapters
+  .col-sm-11.text-center
+    %h3 Chapters
 -if @novel.chapters.any?
   .row
     - @grouped_chapters.each do |key, value|
@@ -41,26 +44,33 @@
             .slide
               .slide-content
                 %h5
-                = link_to chapter.title, novel_chapter_path(@novel, chapter)
+                  = link_to chapter.title, novel_chapter_path(@novel, chapter)
                 .extra-info
-                  .row.text-center
-                    %p.col-sm-2
-                      Author:
-                    .col-sm-2
+                  .row
+                    .col-sm-5
+                      %p
+                        Author:
+                    .col-sm-7
                       = link_to chapter.user.name, user_path(chapter.user.name), class: 'author'
                   .row
-                    %p.date.col-sm-2
-                      Created at:
-                    .col-sm-2
+                    .col-sm-5
+                      %p.date
+                        Created at:
+                    .col-sm-7
                       = l chapter.created_at.to_date, format: :long
                   .row
-                    %p.likes.col-sm-2
-                      = chapter.likes
-                    .col-sm-2
-                      likes
+                    .col-sm-12.text-center
+                      %p.likes
+                        = chapter.likes
+                        likes
                   = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
                   = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: chapter.parent_id), class: "btn btn-secondry"
-                  - if current_user && current_user.like_chapter?(chapter)
-                    = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
-                  - else
-                    = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+                  / it's unnecessary to display like button in this view
+                  / - if current_user && current_user.like_chapter?(chapter)
+                  /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+                  / - else
+                  /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+- else 
+  .row
+    .col-sm-12.text-center
+      %p No Chapters yet
