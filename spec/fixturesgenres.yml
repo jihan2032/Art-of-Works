@@ -1,1 +1,36 @@
---- {}
+---
+Genre_1:
+  id: 1
+  name: horror
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_2:
+  id: 2
+  name: action
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_3:
+  id: 3
+  name: drama
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_4:
+  id: 4
+  name: adventure
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_5:
+  id: 5
+  name: romance
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_6:
+  id: 6
+  name: comedy
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
+Genre_7:
+  id: 7
+  name: sci_fi
+  created_at: 2015-11-26 18:14:02.000000000 Z
+  updated_at: 2015-11-26 18:14:02.000000000 Z
