@@ -10,18 +10,14 @@
           %li.active Novels
     .row
       .col-sm-4.col-sm-offset-8.list-filter.text-center
-        %ol.breadcrumb
-          %li.recent
-            = link_to 'Most Recent', search_novels_path(filter: 'recent'), remote: true
-          %li.random
-            = link_to 'Random', search_novels_path(filter: 'random'), remote: true
-          %li.popular.active_filter
-            = link_to 'Most Popular', search_novels_path, remote: true
+        .filter_tabs
+          = render 'filter_tabs'
     .row
       = render 'search_side_bar'
       .col-md-9
         - if @novels.any?
-          = render 'novels'
+          .novels_part
+            = render 'novels'
         - else
           .card
             %h4 No novels found

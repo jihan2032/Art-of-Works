@@ -37,24 +37,28 @@ class NovelsController < ApplicationController
         # search by author
         elsif User.search(keyword).any?
           @authors = User.search(keyword)
-          @novels  = Novel.where(user_id: @authors)
+          @novels  = Novel.where(user_id: @authors.results.map(&:id))
           @author  = true
         end
       end
+    else #nothing in the search box
+      @novels = Novel.all
     end
     # Genre filter
-    if params[:genre].present?
-
-    end
-    # sorting novels after search
-    if params[:filter].present?
-      if params[:filter] == 'random'
-        @novels = @novels.page params[:page]
-      elsif params[:filter] == 'recent'
-        @novels = @novels #.order(updated_at: :desc).page params[:page]
+    novels = Novel.where(id: nil)
+    genre_filter = false
+    Genre.all.each do |genre|
+      if params["#{genre.id}"].present?
+        genre_filter = true
+        novels = novels + genre.novels
       end
+    end
+    @novels = @novels & novels if genre_filter
+    # sorting novels after search
+    if params[:filter].present? && params[:filter] == 'recent'
+      @novels = @novels.sort_by(&:created_at).reverse
     elsif @novels.any?
-      @novels = @novels#.order(likes: :desc).page params[:page]
+      @novels = @novels.sort_by(&:likes).reverse
     end
     respond_to do |format|
       format.js

@@ -1,39 +1,37 @@
 .row.cards-list
   - if action_name == 'index'
     .col-sm-4.col-sm-offset-8.list-filter.text-center
-      %ol.breadcrumb
-        %li.recent
-          = link_to 'Most Recent', novels_path(filter: 'recent'), remote: true
-        %li.random
-          = link_to 'Random', novels_path(filter: 'random'), remote: true
-        %li.popular.active_filter
-          = link_to 'Most Popular', novels_path, remote: true
-  .col-sm-12
-    - @novels.each do |novel|
-      .card
-        .media
-          = link_to novel_path(novel), class: 'media-left' do
-            = image_tag novel.cover_photo.square, class: 'media-object'
-          .media-body
-            - if novel.above_18
-              %p.label.danger 18+
-            - else
-              %p.label.safe suitable 4 all
-            = link_to novel_path(novel) do
-              %h4.media-heading= novel.title
-            %p.description= novel.abstract
-            %p.extra-info
-              %span
-                Author:
-                = link_to novel.user.name, user_path(novel.user)
-              %br
-              %span
-                Likes:
-                = novel.likes
-              %span.tags.pull-right
-                - novel.genres.each do |genre|
-                  %i= genre.name.titleize
-  .col-sm-12.text-center
-    %nav
-      %ul.pagination
-        = paginate @novels
+      = render 'filter_tabs'
+  - if @novels.any?
+    .col-sm-12
+      - @novels.each do |novel|
+        .card
+          .media
+            = link_to novel_path(novel), class: 'media-left' do
+              = image_tag novel.cover_photo.square, class: 'media-object'
+            .media-body
+              - if novel.above_18
+                %p.label.danger 18+
+              - else
+                %p.label.safe suitable 4 all
+              = link_to novel_path(novel) do
+                %h4.media-heading= novel.title
+              %p.description= novel.abstract
+              %p.extra-info
+                %span
+                  Author:
+                  = link_to novel.user.name, user_path(novel.user)
+                %br
+                %span
+                  Likes:
+                  = novel.likes
+                %span.tags.pull-right
+                  - novel.genres.each do |genre|
+                    %i= genre.name.titleize
+    - if action_name == 'index'
+      .col-sm-12.text-center
+        %nav
+          %ul.pagination
+            = paginate @novels
+  - else
+    %h4 No novels found
