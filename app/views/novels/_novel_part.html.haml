@@ -48,13 +48,13 @@
           = key
           Versions
       .col-sm-9
-        .slider{:class => '.slider-' + key.to_s, "data-chapter-number" => key.to_s}
+        .slider{:class => 'slider-' + key.to_s, "data-chapter-number" => key.to_s}
           - value.each do|chapter|
             .slide
               .slide-content
                 .hidden-inputs
                   = hidden_field :chapter , :id, :id => 'chapter-' + chapter.id.to_s, :value => chapter.id
-                  = hidden_field :chapter , :parent_id, :id => 'parent-' + chapter.id.to_s, :value => chapter.parent_id
+                  / = hidden_field :chapter , :parent_id, :id => 'parent-' + chapter.id.to_s, :value => chapter.parent_id
                 %h5
                   = link_to chapter.title, novel_chapter_path(@novel, chapter)
                 .extra-info

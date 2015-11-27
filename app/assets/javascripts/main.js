@@ -317,3 +317,15 @@ $(document).on('submit', '#new_chapter', function(e) {
   $(this).find('textarea').val(quillEditor.getHTML());
   return true;
 });
+
+$(document).on('click', '.slider-add-chapter', function(e) {
+  var self = $(this);
+  var href = self.data('href');
+  var chapterNumber = parseInt(self.data('chapter-number'));
+  if(chapterNumber == 1) {
+    alert('You cannot add new version of chapter 1');;
+    return false;
+  }
+  var parentChapterId = $('.slider-' + (chapterNumber - 1)).find('slick-center input[type="hidden"]').val();
+  window.location = href.replace(/0$/, parentChapterId)
+});
