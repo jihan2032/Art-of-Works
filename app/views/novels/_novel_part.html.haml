@@ -6,27 +6,36 @@
       - if @novel.above_18
         %p.label.danger 18+
       - else
-        %p.label.safe suitable 4 all
+        %p.label.safe for all
       %h1= @novel.title
     .novel-description
       %p= @novel.abstract
       .extra-info
-        %p
-          Authored by:
-          = link_to @novel.user.name, user_path(@novel.user), class: 'author'
-        %p.date
-          Created at:
-          = l @novel.created_at.to_date, format: :long
-        %p.likes
-          Likes:
-          = @novel.likes
-        %p.genres
-          Genres:
-          %span.tags
-            - @novel.genres.each do |genre|
-              %i= genre.name.titleize
-        - if @novel.author?(current_user) && @novel.chapters.empty?
-          = link_to "Create the first chapter", new_novel_chapter_path(@novel), class: "btn btn-secondry"
+        .row
+          .col-sm-2
+            %p
+              Author:
+          .col-sm-10
+            = link_to @novel.user.name, user_path(@novel.user), class: 'author'
+        .row
+          .col-sm-2
+            %p.date
+              Created at:
+          .col-sm-10
+            = l @novel.created_at.to_date, format: :long
+        .row
+          .col-sm-2
+            %p.genres
+              Genres:
+          .col-sm-10
+            %span.tags
+              - @novel.genres.each do |genre|
+                %i= genre.name.titleize
+        .row
+          .col-sm-12
+            %p.likes
+              = @novel.likes
+              likes
 .row.chapters
   .col-sm-11.text-center
     %h3 Chapters
@@ -38,11 +47,14 @@
           Chapter
           = key
           Versions
-      .col-sm-10
+      .col-sm-9
         .slider{:class => '.slider-' + key.to_s, "data-chapter-number" => key.to_s}
           - value.each do|chapter|
             .slide
               .slide-content
+                .hidden-inputs
+                  = hidden_field :chapter , :id, :id => 'chapter-' + chapter.id.to_s, :value => chapter.id
+                  = hidden_field :chapter , :parent_id, :id => 'parent-' + chapter.id.to_s, :value => chapter.parent_id
                 %h5
                   = link_to chapter.title, novel_chapter_path(@novel, chapter)
                 .extra-info
@@ -57,20 +69,24 @@
                       %p.date
                         Created at:
                     .col-sm-7
-                      = l chapter.created_at.to_date, format: :long
+                      = chapter.created_at.strftime('%d %b %Y')
                   .row
                     .col-sm-12.text-center
                       %p.likes
                         = chapter.likes
                         likes
-                  = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
-                  = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: chapter.parent_id), class: "btn btn-secondry"
-                  / it's unnecessary to display like button in this view
-                  / - if current_user && current_user.like_chapter?(chapter)
-                  /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
-                  / - else
-                  /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
-- else 
+                  / = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
+      .col-sm-1
+        %input{'type' => 'image', 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0)}
+      / it's unnecessary to display like button in this view
+      / - if current_user && current_user.like_chapter?(chapter)
+      /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+      / - else
+      /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+- else
   .row
     .col-sm-12.text-center
-      %p No Chapters yet
+      %p
+        No Chapters yet 
+        -if @novel.author?(current_user)
+          = link_to "Create the first chapter", new_novel_chapter_path(@novel), class: "btn btn-secondry"

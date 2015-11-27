@@ -8,10 +8,6 @@
           %li
             = link_to 'Home', root_path
           %li.active Novels
-    .row
-      = link_to new_novel_path, class: 'btn green' do
-        Add New Novel
-        %i.fa.fa-plus
     - if @novels.any?
       .novels_part
         = render 'novels'
