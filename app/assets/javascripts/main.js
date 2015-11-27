@@ -308,7 +308,8 @@ $(document).on('beforeChange', '.slider', function(e, sl, n, p) {
 });
 
 $(document).on('init', '.slider', function(e, sl){
-    if(sl.$slides.length > 3) {
+    var self = $(this);
+    if(!self.hasClass('slider-1')) {
         $('.slick-center').removeClass('slick-center');
     }
 });
@@ -326,6 +327,12 @@ $(document).on('click', '.slider-add-chapter', function(e) {
     alert('You cannot add new version of chapter 1');;
     return false;
   }
-  var parentChapterId = $('.slider-' + (chapterNumber - 1)).find('slick-center input[type="hidden"]').val();
+  var parentSlider = $('.slider-' + (chapterNumber - 1));
+  var parentChapterInput = parentSlider.find('.slick-center input[type="hidden"]');
+  if(parentChapterInput.length == 0) {
+    alert("Please pick a chapter from previous slider");
+    return;
+  }
+  var parentChapterId = parentChapterInput.val();
   window.location = href.replace(/0$/, parentChapterId)
 });

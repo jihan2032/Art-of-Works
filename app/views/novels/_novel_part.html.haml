@@ -76,13 +76,18 @@
                         = chapter.likes
                         likes
                   / = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
-      .col-sm-1
-        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-chapter-number' => key}
-      / it's unnecessary to display like button in this view
-      / - if current_user && current_user.like_chapter?(chapter)
-      /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
-      / - else
-      /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+      - if current_user
+        .col-sm-1
+          %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-chapter-number' => key}
+        / it's unnecessary to display like button in this view
+        / - if current_user && current_user.like_chapter?(chapter)
+        /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+        / - else
+        /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+  - if current_user
+    .row
+      .col-sm-1.col-sm-offset-5.text-center
+        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next Chapter", 'data-chapter-number' => (@grouped_chapters.max_by{|k,v| k}[0] + 1)}
 - else
   .row
     .col-sm-12.text-center
