@@ -305,6 +305,15 @@ $(document).on('click', '.slide', function (){
     }
     var chapterId = self.data('chapter-id');
     nextSlider.slick('slickFilter', '.slide[data-parent-id=' + chapterId + ']');
+    nextSlider.find('.slick-center').removeClass('.slick-center');
+    var i = chapterNumber + 2
+    nextSlider = $('.slider-' + i)
+     while(nextSlider.length != 0) {
+      nextSlider.slick('slickUnfilter');
+      nextSlider.find('.slick-center').removeClass('.slick-center');
+      i++;
+      nextSlider = $('.slider-' + i);
+    } 
 });
 
 $(document).on('beforeChange', '.slider', function(e, sl, n, p) {
