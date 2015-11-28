@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :my_readings, :my_writings ]
 
   def show
+    @novels = @user.read_novels
   end
 
   def edit
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
 
 private
   def set_user
-    @user = current_user
+    @user = User.find params[:id]
   end
 
 private

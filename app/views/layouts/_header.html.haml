@@ -20,10 +20,11 @@
                   Novels
                   %span.caret
                 %ul.dropdown-menu{"aria-labelledby" => "about-menu", :role => "menu"}
-                  %li{:role => "presentation"}
-                    = link_to 'My Readings', my_readings_users_path
-                  %li{:role => "presentation"}
-                    = link_to 'My Writings', my_writings_users_path
+                  - if current_user
+                    %li{:role => "presentation"}
+                      = link_to 'My Readings', my_readings_user_path(current_user)
+                    %li{:role => "presentation"}
+                      = link_to 'My Writings', my_writings_user_path(current_user)
                   %li{:role => "presentation"}
                     = link_to 'All Novels', root_path
               %li

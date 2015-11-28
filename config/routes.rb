@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       sign_up:  :register,
     }
   resources  :users do
-    collection do
+    member do
       get :my_readings
       get :my_writings
     end
