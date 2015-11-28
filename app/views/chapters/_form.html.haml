@@ -1,4 +1,4 @@
-= form_for [@novel, @chapter], html: { class: "main-content new-novel-form padded-form" } do |f|
+= form_for [@novel, @chapter], html: { class: "main-content new-novel-form padded-form quill-form" } do |f|
   = error_messages_for(@chapter)
   = f.hidden_field :user_id, value: current_user.id if current_user
   = f.hidden_field :novel_id, value: params[:novel_id]
