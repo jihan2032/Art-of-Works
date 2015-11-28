@@ -20,6 +20,7 @@ class ChaptersController < ApplicationController
     if @chapter.save
       redirect_to novel_path(@chapter.novel.id, chapter_no: @chapter.chapter_no, chapter_version_id: @chapter.id), notice: 'Chapter was successfully created.'
     else
+      @novel = Novel.find params[:novel_id]
       render :new
     end
   end
