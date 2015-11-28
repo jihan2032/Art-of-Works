@@ -34,8 +34,7 @@ private
 private
   def users_params
     params.require(:user).permit(
-      :first_name,
-      :last_name,
+      :user_name,
       :profile_picture,
       :mobile_number
     )

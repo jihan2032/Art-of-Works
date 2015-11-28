@@ -25,7 +25,7 @@ class Chapter < ActiveRecord::Base
 
 
   # Validations
-  validates :title, presence: true
+  validates :title, :content, presence: true
 
   # Methods
   def reads

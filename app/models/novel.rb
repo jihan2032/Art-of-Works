@@ -21,13 +21,13 @@ class Novel < ActiveRecord::Base
   # Relations
   has_many   :chapters
   belongs_to :user
-  has_and_belongs_to_many :genres
+  has_and_belongs_to_many :genres, -> { uniq }
 
   # Scopes
   scope :has_chapters, -> { where(id: Chapter.pluck(:novel_id).uniq) }
 
   # Validations
-  validates :title, presence: true
+  validates :title, :genres, presence: true
 
   mount_uploader :cover_photo, NovelCoverPhotoUploader
 
