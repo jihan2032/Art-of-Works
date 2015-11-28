@@ -142,7 +142,7 @@ function replaceSlides(slider, chapters) {
   });
 }
 
-tracks = buildTracks();
+// tracks = buildTracks();
 var windowHeight, headerHeight;
 /* global Maplace chaptersTree quillEditor */
 $(document).ready(function(){
