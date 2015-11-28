@@ -308,7 +308,8 @@ $(document).on('beforeChange', '.slider', function(e, sl, n, p) {
 });
 
 $(document).on('init', '.slider', function(e, sl){
-    if(sl.$slides.length > 3) {
+    var self = $(this);
+    if(!self.hasClass('slider-1')) {
         $('.slick-center').removeClass('slick-center');
     }
 });
@@ -316,4 +317,22 @@ $(document).on('init', '.slider', function(e, sl){
 $(document).on('submit', '#new_chapter', function(e) {
   $(this).find('textarea').val(quillEditor.getHTML());
   return true;
+});
+
+$(document).on('click', '.slider-add-chapter', function(e) {
+  var self = $(this);
+  var href = self.data('href');
+  var chapterNumber = parseInt(self.data('chapter-number'));
+  if(chapterNumber == 1) {
+    alert('You cannot add new version of chapter 1');;
+    return false;
+  }
+  var parentSlider = $('.slider-' + (chapterNumber - 1));
+  var parentChapterInput = parentSlider.find('.slick-center input[type="hidden"]');
+  if(parentChapterInput.length == 0) {
+    alert("Please pick a chapter from previous slider");
+    return;
+  }
+  var parentChapterId = parentChapterInput.val();
+  window.location = href.replace(/0$/, parentChapterId)
 });

@@ -40,21 +40,21 @@
   .col-sm-11.text-center
     %h3 Chapters
 -if @novel.chapters.any?
-  .row
-    - @grouped_chapters.each do |key, value|
+  - @grouped_chapters.each do |key, value|
+    .row
       .col-sm-2
         %h5.v-center
           Chapter
           = key
           Versions
       .col-sm-9
-        .slider{:class => '.slider-' + key.to_s, "data-chapter-number" => key.to_s}
+        .slider{:class => 'slider-' + key.to_s, "data-chapter-number" => key.to_s}
           - value.each do|chapter|
             .slide
               .slide-content
                 .hidden-inputs
                   = hidden_field :chapter , :id, :id => 'chapter-' + chapter.id.to_s, :value => chapter.id
-                  = hidden_field :chapter , :parent_id, :id => 'parent-' + chapter.id.to_s, :value => chapter.parent_id
+                  / = hidden_field :chapter , :parent_id, :id => 'parent-' + chapter.id.to_s, :value => chapter.parent_id
                 %h5
                   = link_to chapter.title, novel_chapter_path(@novel, chapter)
                 .extra-info
@@ -76,13 +76,18 @@
                         = chapter.likes
                         likes
                   / = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: chapter.id), class: "btn btn-primary"
-      .col-sm-1
-        %input{'type' => 'image', 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0)}
-      / / it's unnecessary to display like button in this view
-      / - if current_user && current_user.like_chapter?(chapter)
-      /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
-      / - else
-      /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+      - if current_user
+        .col-sm-1
+          %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-chapter-number' => key}
+        / it's unnecessary to display like button in this view
+        / - if current_user && current_user.like_chapter?(chapter)
+        /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
+        / - else
+        /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
+  - if current_user
+    .row
+      .col-sm-1.col-sm-offset-5.text-center
+        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_novel_chapter_path(@novel, parent_chapter_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next Chapter", 'data-chapter-number' => (@grouped_chapters.max_by{|k,v| k}[0] + 1)}
 - else
   .row
     .col-sm-12.text-center

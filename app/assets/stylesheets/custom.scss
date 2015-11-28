@@ -100,3 +100,13 @@ footer {}
 .about-novel .tags i {
   background-color: #ddd;
 }
+.btn-secondary {
+  background-color: #828384;
+  border-color: #828384;
+  color:white;
+  &:focus, &:hover {
+    background-color: #828384;
+    border-color: #828384;
+    color:white;
+  }
+}
