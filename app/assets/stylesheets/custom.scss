@@ -94,9 +94,7 @@ footer {}
 .slick-center .slide-content {
   padding: 30px 0;
 }
-.add {
-  color: green;
-}
+
 .about-novel .tags i {
   background-color: #ddd;
 }
@@ -108,5 +106,25 @@ footer {}
     background-color: #828384;
     border-color: #828384;
     color:white;
+  }
+}
+.slider-add-chapter {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  .level & {
+    margin-top: 90%;
+    margin-bottom: 0;
+  }
+}
+.level-title {
+  margin-top: 35%;
+  font-weight: bold;
+}
+.arrow-down {
+  img {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    width: 30px;
+    height: 30px;
   }
 }
