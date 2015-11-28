@@ -95,6 +95,6 @@
   .row
     .col-sm-12.text-center
       %p
-        No Chapters yet 
+        No Chapters yet
         -if @novel.author?(current_user)
           = link_to "Create the first chapter", new_novel_chapter_path(@novel), class: "btn btn-secondry"

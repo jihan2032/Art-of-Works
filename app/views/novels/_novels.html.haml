@@ -5,7 +5,8 @@
         Add New Novel
         %i.fa.fa-plus
     .col-sm-4.col-sm-offset-4.list-filter.text-center
-      = render 'filter_tabs'
+      .filter_tabs
+        = render 'filter_tabs'
   - if @novels.any?
     .col-sm-12
       - @novels.each do |novel|
