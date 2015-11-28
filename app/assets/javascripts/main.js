@@ -316,13 +316,38 @@ $(document).on('click', '.slide', function (){
       i++;
       nextSlider = $('.slider-' + i);
     } 
-    $('.slider').each(function() {
+    var previousIsEmpty = false;
 
+    $('.slider').each(function() {
+      var slider = $(this);
+      var sl = slider.slick('getSlick');
+      var parentRow = slider.closest('.level');
+      var addNewVersionBtn = parentRow.find('.slider-add-chapter');
+      var sliderInnerList = slider.find('.slick-list');
+      sliderInnerList.find('.no-chapter').remove();
+      console.log(addNewVersionBtn);
+      if(sl.$slides.length == 0 || previousIsEmpty) {
+        addNewVersionBtn.hide();
+        if(previousIsEmpty == false) {
+          addNewVersionBtn.show();
+          previousIsEmpty = true;
+        }
+        slider.slick('slickFilter', '.no-chapter');
+        slider.css('min-height', '180px');
+        
+        sliderInnerList.append('<p style="display:block;width:100%;text-align:center;font-weight:400;font-size:20px;margin-top:60px" class="no-chapter"> No Chapters here</p>')
+      } else {
+        addNewVersionBtn.show();
+      }
     });
 });
 
 $(document).on('beforeChange', '.slider', function(e, sl, n, p) {
     $(sl.$slides[n]).blur();
+});
+
+$(document).on('afterChange', '.slider', function(e, sl, n, p) {
+  $(this).find('.slick-center').click();
 });
 
 $(document).on('init', '.slider', function(e, sl){
