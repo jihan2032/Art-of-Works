@@ -35,10 +35,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   # Relations
   has_many :novels
+  has_many :videos
   has_many :chapters
+  has_many :video_tracks
   has_many :read_chapters
   has_many :liked_chapters
+  has_many :viewed_video_tracks
+  has_many :liked_video_tracks
   has_many :read_novels, through: :read_chapters
+  has_many :viewed_videos, through: :viewed_video_tracks
 
   # Validations
   validates :user_name, presence: true
@@ -62,5 +67,17 @@ class User < ActiveRecord::Base
 
   def read_chapter?(chapter)
     ReadChapter.where(user_id: id, chapter_id: chapter.id).any?
+  end
+
+  def viewed_videos
+    Video.where(id: VideoTrack.where(id: viewed_video_tracks.pluck(:video_track_id)).pluck(:video_id))
+  end
+
+  def like_video_track?(track)
+    LikedVideoTrack.where(user_id: id, video_track_id: track.id).any?
+  end
+
+  def viewed_video_track?(track)
+    ViewedVideoTrack.where(user_id: id, video_track_id: track.id).any?
   end
 end

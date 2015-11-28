@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126184826) do
+ActiveRecord::Schema.define(version: 20151128124937) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20151126184826) do
     t.integer  "chapter_id", limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "liked_video_tracks", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "video_track_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "novels", force: :cascade do |t|
@@ -87,5 +94,34 @@ ActiveRecord::Schema.define(version: 20151126184826) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "video_tracks", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.integer  "track_no",   limit: 4
+    t.integer  "parent_id",  limit: 4
+    t.integer  "video_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.text     "abstract",   limit: 65535
+    t.string   "link_url",   limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.integer  "user_id",     limit: 4
+    t.string   "cover_photo", limit: 255
+    t.text     "abstract",    limit: 65535
+    t.boolean  "above_18",                  default: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  create_table "viewed_video_tracks", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "video_track_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
 end

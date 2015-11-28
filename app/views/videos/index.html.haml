@@ -1,0 +1,15 @@
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1 Novels
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            = link_to 'Home', root_path
+          %li.active Novels
+    - if @novels.any?
+      .novels_part
+        = render 'novels'
+    - else
+      %h4 No novels created yet
