@@ -21,7 +21,7 @@ class Novel < ActiveRecord::Base
   # Relations
   has_many   :chapters
   belongs_to :user
-  has_and_belongs_to_many :genres, uniq: true
+  has_and_belongs_to_many :genres, -> { uniq }
 
   # Scopes
   scope :has_chapters, -> { where(id: Chapter.pluck(:novel_id).uniq) }

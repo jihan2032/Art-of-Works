@@ -150,7 +150,9 @@ $(document).ready(function(){
   //   var $icons = $('<div class="icons"></div>').html(new XMLSerializer().serializeToString(data.documentElement));
   //   $('body').prepend($icons);
   // });
-
+  var headerHeight = $('header').height();
+  var windowHeight = $(window).height();
+  $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
   if ($('#editor').length > 0) {
     quillEditor = new Quill('#editor', {
       modules: {
@@ -349,3 +351,7 @@ $(document).on('click', '.slider-add-chapter', function(e) {
   var parentChapterId = parentChapterInput.val();
   window.location = href.replace(/0$/, parentChapterId)
 });
+
+$( window).resize(function() {
+    $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
+  });

@@ -122,9 +122,15 @@ footer {}
 }
 .arrow-down {
   img {
-    margin-top: -10px;
-    margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 20px;
     width: 30px;
     height: 30px;
   }
+}
+.slick-next:before, .slick-prev:before {
+  color: black;
+}
+.next_chapters .text-left {
+  text-align: left;
 }
