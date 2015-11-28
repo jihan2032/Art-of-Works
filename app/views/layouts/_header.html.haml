@@ -13,8 +13,12 @@
               = image_tag 'logo.png'
           .collapse.navbar-collapse.navbar-ex1-collapse.nav-section
             %ul.nav.navbar-nav
-              %li.active
-                = link_to 'Home', root_path
+              - if controller_name == 'novels' && action_name == 'index'
+                %li.home.active
+                  = link_to 'Home', root_path
+              - else
+                %li.home
+                  = link_to 'Home', root_path
               %li.dropdown
                 %a#about-menu.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :href => "#"}
                   Novels
@@ -28,7 +32,7 @@
                   %li{:role => "presentation"}
                     = link_to 'All Novels', root_path
               %li
-                %a{:href => "#"} Audio
+                %a{:href => "#"} Video
               %li
                 %a{:href => "#"} About
               %li
