@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20151126184826) do
   create_table "genres_novels", force: :cascade do |t|
     t.integer  "genre_id",   limit: 4
     t.integer  "novel_id",   limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "liked_chapters", force: :cascade do |t|

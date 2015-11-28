@@ -3,7 +3,7 @@ class CreateTableGenresNovels < ActiveRecord::Migration
     create_table :genres_novels do |t|
       t.integer :genre_id
       t.integer :novel_id
-      t.timestamps null: false
+      t.timestamps null: true
     end
   end
 end
