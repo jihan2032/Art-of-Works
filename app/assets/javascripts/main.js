@@ -288,19 +288,23 @@ $(document).ready(function(){
 // });
 $(document).on('click', '.slide', function (){
     var self = $(this);
-    var parent = self.closest('.slider');
-    var sl = parent.slick('getSlick');
+    var slider = self.closest('.slider');
+    var sl = slider.slick('getSlick');
     var index = self.data('slick-index');
-    if (self.hasClass('slick-center')) {
-        // window.location = "hello-world.html";
-        // return false;
-    }
     if(sl.$slides.length <= 3) {
-      parent.find('.slick-center').removeClass('slick-center');
+      slider.find('.slick-center').removeClass('slick-center');
       self.addClass('slick-center');
     } else {
-      parent.slick('slickGoTo', index);
+      slider.slick('slickGoTo', index);
     }
+
+    var chapterNumber = slider.data('chapter-number');
+    var nextSlider = $('.slider-' + (chapterNumber + 1));
+    if(nextSlider.length == 0) {
+      return;
+    }
+    var chapterId = self.data('chapter-id');
+    nextSlider.slick('slickFilter', '.slide[data-parent-id=' + chapterId + ']');
 });
 
 $(document).on('beforeChange', '.slider', function(e, sl, n, p) {
