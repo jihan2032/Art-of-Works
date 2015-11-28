@@ -20,12 +20,13 @@
                   Novels
                   %span.caret
                 %ul.dropdown-menu{"aria-labelledby" => "about-menu", :role => "menu"}
+                  - if current_user
+                    %li{:role => "presentation"}
+                      = link_to 'My Readings', my_readings_user_path(current_user)
+                    %li{:role => "presentation"}
+                      = link_to 'My Writings', my_writings_user_path(current_user)
                   %li{:role => "presentation"}
-                    %a{:href => "user-readings.html", :role => "menuitem", :tabindex => "-1"} My Novels
-                  %li{:role => "presentation"}
-                    %a{:href => "user-writings.html", :role => "menuitem", :tabindex => "-1"} My Writings
-                  %li{:role => "presentation"}
-                    %a{:href => "all-novels.html", :role => "menuitem", :tabindex => "-1"} All Novels
+                    = link_to 'All Novels', root_path
               %li
                 %a{:href => "#"} Audio
               %li

@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :chapters
   has_many :read_chapters
   has_many :liked_chapters
+  has_many :read_novels, through: :read_chapters
 
   # Validations
   validates :user_name, presence: true

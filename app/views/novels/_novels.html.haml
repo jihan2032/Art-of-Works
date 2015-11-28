@@ -33,7 +33,7 @@
                 %span.tags.pull-right
                   - novel.genres.each do |genre|
                     %i= genre.name.titleize
-    - if action_name == 'index'
+    - if action_name != 'search'
       .col-sm-12.text-center
         %nav
           %ul.pagination

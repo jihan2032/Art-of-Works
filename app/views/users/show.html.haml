@@ -19,11 +19,11 @@
   .my_readings_container
     .my_readings
       %legend My Readings
-      %ul
-        - Novel.all.first(3).each do |novel|
-          %li
-            = link_to novel_path(novel) do
-              = image_tag novel.cover_photo.square, class: 'img_reading'
-              %span= novel.title
-      %a.view_more{:href => "#"} view more
-
+      - if @novels.any?
+        %ul
+          - @novels.first(3).each do |novel|
+            %li
+              = link_to novel_path(novel) do
+                = image_tag novel.cover_photo.square, class: 'img_reading'
+                %span= novel.title
+        = link_to 'view more', my_readings_user_path(@user), class: 'view_more'

@@ -5,7 +5,12 @@ Rails.application.routes.draw do
       sign_out: :logout,
       sign_up:  :register,
     }
-  resources  :users
+  resources  :users do
+    member do
+      get :my_readings
+      get :my_writings
+    end
+  end
   resources  :novels do
     resources  :chapters
     collection do
