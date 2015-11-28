@@ -6,6 +6,7 @@ class ChaptersController < ApplicationController
   def new
     @chapter = Chapter.new
     session[:parent_chapter_id] = params[:parent_chapter_id]
+    @chapter.parent = Chapter.find session[:parent_chapter_id] if params[:parent_chapter_id].present?
   end
 
   def create

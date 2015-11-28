@@ -1,0 +1,42 @@
+.row.cards-list
+  - if action_name == 'index'
+    .col-sm-4
+      = link_to new_novel_path, class: 'btn green' do
+        Add New Novel
+        %i.fa.fa-plus
+    .col-sm-4.col-sm-offset-4.list-filter.text-center
+      .filter_tabs
+        = render 'filter_tabs'
+  - if @novels.any?
+    .col-sm-12
+      - @novels.each do |novel|
+        .card
+          .media
+            = link_to novel_path(novel), class: 'media-left' do
+              = image_tag novel.cover_photo.square, class: 'media-object'
+            .media-body
+              - if novel.above_18
+                %p.label.danger 18+
+              - else
+                %p.label.safe for all
+              = link_to novel_path(novel) do
+                %h4.media-heading= novel.title
+              %p.description= novel.abstract
+              %p.extra-info
+                %span
+                  Author:
+                  = link_to novel.user.name, user_path(novel.user)
+                %br
+                %span
+                  Likes:
+                  = novel.likes
+                %span.tags.pull-right
+                  - novel.genres.each do |genre|
+                    %i= genre.name.titleize
+    - if action_name != 'search'
+      .col-sm-12.text-center
+        %nav
+          %ul.pagination
+            = paginate @novels
+  - else
+    %h4 No novels found

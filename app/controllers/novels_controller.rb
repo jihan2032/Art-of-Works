@@ -1,5 +1,5 @@
 class NovelsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update]
+  before_action :authenticate_user!, only: [ :new, :edit, :update ]
   before_action :authenticate_author, only: [:edit, :update]
   before_action :set_novel, only: [ :show, :edit, :update, :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
   before_action :set_chapter_and_user, only: [ :add_to_readings, :remove_from_readings, :like_chapter, :unlike_chapter ]
@@ -7,9 +7,9 @@ class NovelsController < ApplicationController
   def index
     if params[:filter].present?
       if params[:filter] == 'random'
-        @novels = Novel.page params[:page]
+        @novels = Novel.has_chapters.page params[:page]
       elsif params[:filter] == 'recent'
-        @novels = Novel.order(updated_at: :desc).page params[:page]
+        @novels = Novel.has_chapters.order(updated_at: :desc).page params[:page]
       end
     else
       @novels = Kaminari.paginate_array(Novel.has_chapters.sort_by(&:likes).reverse).page params[:page]
@@ -29,12 +29,12 @@ class NovelsController < ApplicationController
         @genre = Genre.where(name: keyword.downcase).first
       else
         # search by title
-        @novels = Novel.search(keyword)
+        @novels = Novel.has_chapters.search(keyword)
         if @novels.any?
         # search by author
         elsif User.search(keyword).any?
           @authors = User.search(keyword)
-          @novels  = Novel.where(user_id: @authors.results.map(&:id))
+          @novels  = Novel.has_chapters.where(user_id: @authors.results.map(&:id))
         end
       end
     else #nothing in the search box
@@ -101,7 +101,10 @@ class NovelsController < ApplicationController
   end
 
   def like_chapter
-    if @chapter.present?
+    unless current_user
+      flash[:alert] = 'please login first'
+    end
+    if @chapter.present? && current_user
       LikedChapter.create(user_id: @user.id, chapter_id: @chapter.id)
     end
     respond_to do |format|
@@ -110,7 +113,10 @@ class NovelsController < ApplicationController
   end
 
   def unlike_chapter
-    if @chapter.present?
+    unless current_user
+      flash[:alert] = 'please login first'
+    end
+    if @chapter.present? && current_user
       LikedChapter.where(user_id: @user.id, chapter_id: @chapter.id).first.destroy
     end
     respond_to do |format|
@@ -119,7 +125,10 @@ class NovelsController < ApplicationController
   end
 
   def add_to_readings
-    if @chapter.present?
+    unless current_user
+      flash[:alert] = 'please login first'
+    end
+    if @chapter.present? && current_user
       ReadChapter.create(user_id: @user.id, chapter_id: @chapter.id)
     end
     respond_to do |format|
@@ -128,7 +137,10 @@ class NovelsController < ApplicationController
   end
 
   def remove_from_readings
-    if @chapter.present?
+    unless current_user
+      flash[:alert] = 'please login first'
+    end
+    if @chapter.present? && current_user
       ReadChapter.where(user_id: @user.id, chapter_id: @chapter.id).first.destroy
     end
     respond_to do |format|
