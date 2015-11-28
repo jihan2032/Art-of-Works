@@ -1,17 +1,23 @@
-.col-sm-2
+.col-sm-4
   - if current_user && current_user.read_chapter?(@chapter)
     = link_to "Remove from my readings", remove_from_readings_novel_path(@novel, chapter_id: @chapter.id), method: :patch, remote: true, class: "btn btn-warning"
   - else
     = link_to "Add to my readings", add_to_readings_novel_path(@novel, chapter_id: @chapter.id), method: :patch, remote: true, class: "btn btn-secondary"
 
-.col-sm-2
+.col-sm-3
   - if current_user && current_user.like_chapter?(@chapter)
     = link_to "unlike", unlike_chapter_novel_path(@novel, chapter_id: @chapter.id), :method => :patch, remote: true, class: "btn btn-warning"
   - else
     = link_to "Like", like_chapter_novel_path(@novel, chapter_id: @chapter.id), :method => :patch, remote: true, class: "btn btn-secondary"
 
-.col-sm-4
+.col-sm-5
   - if @chapter.children.any?
-    .next_chapters
-      - @chapter.children.each do |child_chapter|
-        = link_to "Chapter #{child_chapter.title}", novel_chapter_path(@novel, child_chapter), class: "btn btn-secondry"
+    .row.next_chapters
+      .col-sm-12.dropdown
+        %button#next-chapters-menu.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Next Chapters
+          %span.caret
+        %ul.dropdown-menu{'aria-labelledby' => 'next-chapters-menu'}
+          - @chapter.children.each do |child_chapter|
+            %li
+              = link_to "Chapter: #{child_chapter.title}", novel_chapter_path(@novel, child_chapter), class: "btn btn-secondry text-left"

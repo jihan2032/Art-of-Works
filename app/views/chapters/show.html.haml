@@ -17,13 +17,14 @@
             %li
               = link_to @chapter.parent.title, novel_chapter_path(@novel, @chapter.parent)
             %li.active= @chapter.title
-    - if @chapter.chapter_no != 1
+      - if @chapter.chapter_no != 1
+        .col-sm-2
+          = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.parent_id), class: "btn btn-secondry"
       .col-sm-2
-        = link_to "Create new version", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.parent_id), class: "btn btn-secondry"
-    .col-sm-2
-      = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.id), class: "btn btn-primary"
-    .chapter_actions
-      = render 'chapter_actions'
+        = link_to "Create next chapter", new_novel_chapter_path(@novel, parent_chapter_id: @chapter.id), class: "btn btn-primary"
+      .col-sm-8
+        .row.chapter_actions
+          = render 'chapter_actions'
     .row.about-novel
       .col-sm-9
         .chapter-title
