@@ -36,6 +36,11 @@
             %p.likes
               = @novel.likes
               likes
+        - if @novel.author?(current_user)
+          .row
+            .col-sm-12
+              %p.likes
+                = link_to 'Edit', edit_novel_path(@novel), class: 'btn btn-primary'
 .row.chapters
   .col-sm-11.text-center
     %h3 Chapters
@@ -63,7 +68,7 @@
                       %p
                         Author:
                     .col-sm-7
-                      = link_to chapter.user.name, user_path(chapter.user.name), class: 'author'
+                      = link_to chapter.user.name, user_path(chapter.user), class: 'author'
                   .row
                     .col-sm-5
                       %p.date

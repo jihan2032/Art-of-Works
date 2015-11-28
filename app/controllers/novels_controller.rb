@@ -12,7 +12,7 @@ class NovelsController < ApplicationController
         @novels = Novel.order(updated_at: :desc).page params[:page]
       end
     else
-      @novels = Kaminari.paginate_array(Novel.all.sort_by(&:likes).reverse).page params[:page]
+      @novels = Kaminari.paginate_array(Novel.has_chapters.sort_by(&:likes).reverse).page params[:page]
     end
     respond_to do |format|
       format.js
@@ -38,7 +38,7 @@ class NovelsController < ApplicationController
         end
       end
     else #nothing in the search box
-      @novels = Novel.all
+      @novels = Novel.has_chapters
     end
     # Genre filter
     novels = Novel.where(id: nil)

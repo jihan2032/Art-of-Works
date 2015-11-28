@@ -10,6 +10,7 @@ class ChaptersController < ApplicationController
 
   def create
     @chapter = Chapter.new chapters_params
+    @chapter.content = @chapter.content.html_safe
     if session[:parent_chapter_id].present? && session[:parent_chapter_id] != '0'
       parent              = Chapter.find session[:parent_chapter_id]
       @chapter.parent     = parent
