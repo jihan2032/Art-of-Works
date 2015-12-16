@@ -101,6 +101,6 @@
   .row
     .col-sm-12.text-center
       %p
-        No video_tracks yet
+        No video tracks created yet
         -if @video.author?(current_user)
           = link_to "Create the first video_track", new_video_video_track_path(@video), class: "btn btn-secondry"

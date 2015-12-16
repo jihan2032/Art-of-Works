@@ -1,8 +1,8 @@
 .col-sm-4
   - if current_user && current_user.viewed_video_track?(@video_track)
-    = link_to "Remove from my video list", remove_from_viewed_videos_video_path(@video, video_track_id: @video_track.id), :method => :patch, remote: true, class: "btn btn-warning"
+    = link_to "Remove from my playlist", remove_from_viewed_videos_video_path(@video, video_track_id: @video_track.id), :method => :patch, remote: true, class: "btn btn-warning"
   - else
-    = link_to "Add to my video list", add_to_viewed_videos_video_path(@video, video_track_id: @video_track.id), :method => :patch, remote: true, class: "btn btn-secondary"
+    = link_to "Add to my playlist", add_to_viewed_videos_video_path(@video, video_track_id: @video_track.id), :method => :patch, remote: true, class: "btn btn-secondary"
 .col-sm-3
   - if current_user && current_user.like_video_track?(@video_track)
     = link_to "unlike", unlike_video_track_video_path(@video, video_track_id: @video_track.id), :method => :patch, remote: true, class: "btn btn-warning"
@@ -14,9 +14,9 @@
     .row.next_video_tracks
       .col-sm-12.dropdown
         %button#next-video_tracks-menu.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-          Next video_tracks
+          Next video tracks
           %span.caret
         %ul.dropdown-menu{'aria-labelledby' => 'next-video_tracks-menu'}
           - @video_track.children.each do |child_video_track|
             %li
-              = link_to "video_track: #{child_video_track.title}", video_video_track_path(@video, child_video_track), class: "btn btn-secondry text-left"
+              = link_to "video track: #{child_video_track.title}", video_video_track_path(@video, child_video_track), class: "btn btn-secondry text-left"

@@ -8,10 +8,9 @@
           %li
             = link_to 'Home', root_path
           %li
-            = link_to 'videos', root_path
+            = link_to 'Playlists', root_path
           %li.active= @video.title
     .video_part
       = render 'video_part'
 = javascript_tag do
   jsonstr = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
-

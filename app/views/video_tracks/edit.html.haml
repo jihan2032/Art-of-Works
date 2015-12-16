@@ -12,9 +12,9 @@
           - if @video_track.parent.present?
             %li
               = link_to @video_track.parent.title, video_video_track_path(@video, @video_track.parent)
-            %li.active=  "Edit video_track #{@video_track.parent.track_no + 1}"
+            %li.active=  "Edit video track #{@video_track.parent.track_no + 1}"
           - else
-            %li.active Edit video_track 1
+            %li.active Edit video track 1
     .row
       .col-sm-8.col-sm-offset-2
         = render 'form'

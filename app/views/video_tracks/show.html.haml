@@ -8,7 +8,7 @@
           %li
             = link_to 'Home', root_path
           %li
-            = link_to 'videos', root_path
+            = link_to 'Playlists', videos_path
           %li
             = link_to @video.title, video_path(@video)
           - if @video_track.parent
@@ -24,7 +24,7 @@
         .col-sm-2
           = link_to "Create new version", new_video_video_track_path(@video, parent_video_track_id: @video_track.parent_id), class: "btn btn-primary"
       .col-sm-2
-        = link_to "Create next video_track", new_video_video_track_path(@video, parent_video_track_id: @video_track.id), class: "btn btn-primary"
+        = link_to "Create next video track", new_video_video_track_path(@video, parent_video_track_id: @video_track.id), class: "btn btn-primary"
       .col-sm-7
         .row.video_track_actions
           = render 'video_track_actions'
@@ -37,3 +37,6 @@
         .video_track-content
           .col-md-5.embed-container
             = embed(@video_track.link_url)
+= javascript_tag do
+  jsonstr = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
+  / selected_track = '#{params[:selected_track_id]}';
