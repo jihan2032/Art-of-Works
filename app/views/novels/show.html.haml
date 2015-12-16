@@ -14,4 +14,4 @@
       = render 'novel_part'
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
-
+  selected_chapter = '#{params[:selected_chapter_id]}';
