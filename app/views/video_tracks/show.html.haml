@@ -35,5 +35,5 @@
         .video_track-abstract
           %p= @video_track.abstract
         .video_track-content
-          %p= link_to 'Watch Video', @video_track.link_url, target: '_blank'
-          %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "//www.youtube.com/embed/DokUjuZmpCE", :width => "560"}
+          .col-md-5.embed-container
+            = embed(@video_track.link_url)
