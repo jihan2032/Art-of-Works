@@ -19,5 +19,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources  :videos do
+    resources  :video_tracks
+    member do
+      patch :like_video_track
+      patch :unlike_video_track
+      patch :add_to_viewed_videos
+      patch :remove_from_viewed_videos
+    end
+  end
+
   root to: 'novels#index'
 end

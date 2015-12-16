@@ -26,13 +26,13 @@ class Video < ActiveRecord::Base
   # Validations
   validates :title, :genres, presence: true
 
-  mount_uploader :cover_photo, videoCoverPhotoUploader
+  mount_uploader :cover_photo, VideoCoverPhotoUploader
 
   # Pagination
   paginates_per 10
 
   # Methods
-  def self.has_tracks
+  def self.has_video_tracks
     Video.where(id: VideoTrack.where(track_no: 1).pluck(:video_id)) if VideoTrack.any?
   end
 

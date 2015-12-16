@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)
-#  track_no   :integer
+#  track_no   :integer          default(0)
 #  parent_id  :integer
 #  video_id   :integer
 #  user_id    :integer

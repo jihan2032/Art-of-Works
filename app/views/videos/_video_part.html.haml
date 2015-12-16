@@ -1,0 +1,106 @@
+.row.about-video
+  .col-sm-3.video-img
+    = image_tag @video.cover_photo.profile
+  .col-sm-9
+    .video-heading
+      - if @video.above_18
+        %p.label.danger 18+
+      - else
+        %p.label.safe for all
+      %h1= @video.title
+    .video-description
+      %p= @video.abstract
+      .extra-info
+        .row
+          .col-sm-2
+            %p
+              Author:
+          .col-sm-10
+            = link_to @video.user.name, user_path(@video.user), class: 'author'
+        .row
+          .col-sm-2
+            %p.date
+              Created at:
+          .col-sm-10
+            = l @video.created_at.to_date, format: :long
+        .row
+          .col-sm-2
+            %p.genres
+              Genres:
+          .col-sm-10
+            %span.tags
+              - @video.genres.each do |genre|
+                %i= genre.name.titleize
+        .row
+          .col-sm-12
+            %p.likes
+              = @video.likes
+              likes
+        - if @video.author?(current_user)
+          .row
+            .col-sm-12
+              %p.likes
+                = link_to 'Edit', edit_video_path(@video), class: 'btn btn-primary'
+.row.video_tracks
+  .col-sm-11.text-center
+    %h3 video_tracks
+-if @video.video_tracks.any?
+  - @grouped_video_tracks.keys.sort.each do |key|
+    -value = @grouped_video_tracks[key]
+    .row.level
+      .col-sm-2
+        %h5.v-center.level-title
+          video_track
+          = key
+          Versions
+      .col-sm-9
+        .slider{:class => 'slider-' + key.to_s, "data-video_track-number" => key.to_s}
+          - value.each do|video_track|
+            .slide{'data-parent-id' => video_track.parent_id, 'data-video_track-id' => video_track.id}
+              .slide-content
+                .hidden-inputs
+                  = hidden_field :video_track , :id, :id => 'video_track-' + video_track.id.to_s, :value => video_track.id
+                  / = hidden_field :video_track , :parent_id, :id => 'parent-' + video_track.id.to_s, :value => video_track.parent_id
+                %h5
+                  = link_to video_track.title, video_video_track_path(@video, video_track)
+                .extra-info
+                  .row
+                    .col-sm-5
+                      %p
+                        Author:
+                    .col-sm-7
+                      = link_to video_track.user.name, user_path(video_track.user), class: 'author'
+                  .row
+                    .col-sm-5
+                      %p.date
+                        Created at:
+                    .col-sm-7
+                      = video_track.created_at.strftime('%d %b %Y')
+                  .row
+                    .col-sm-12.text-center
+                      %p.likes
+                        = video_track.likes
+                        likes
+                  / = link_to "Create next video_track", new_video_video_track_path(@video, parent_video_track_id: video_track.id), class: "btn btn-primary"
+      - if current_user && key != 1
+        .col-sm-1
+          %input.slider-add-video_track{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-video_track-number' => key}
+        / it's unnecessary to display like button in this view
+        / - if current_user && current_user.like_video_track?(video_track)
+        /   = link_to "unlike", unlike_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-warning"
+        / - else
+        /   = link_to "Like", like_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-danger"
+    .row
+      .col-sm-1.col-sm-offset-6.arrow-down
+        = image_tag 'svg/arrow-down.svg'
+  - if current_user
+    .row
+      .col-sm-1.col-sm-offset-5.text-center
+        %input.slider-add-video_track{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next video_track", 'data-video_track-number' => ((@grouped_video_tracks.max_by{|k,v| k}[0]) || 0 + 1)}
+- else
+  .row
+    .col-sm-12.text-center
+      %p
+        No video_tracks yet
+        -if @video.author?(current_user)
+          = link_to "Create the first video_track", new_video_video_track_path(@video), class: "btn btn-secondry"

@@ -1,42 +1,43 @@
 .row.cards-list
   - if action_name == 'index'
     .col-sm-4
-      = link_to new_novel_path, class: 'btn green' do
-        Add New Novel
+      = link_to new_video_path, class: 'btn green' do
+        Add New video
         %i.fa.fa-plus
     .col-sm-4.col-sm-offset-4.list-filter.text-center
       .filter_tabs
         = render 'filter_tabs'
-  - if @novels.any?
+  - if @videos.any?
     .col-sm-12
-      - @novels.each do |novel|
+      - @videos.each do |video|
         .card
           .media
-            = link_to novel_path(novel), class: 'media-left' do
-              = image_tag novel.cover_photo.square, class: 'media-object'
+            = link_to video_path(video), class: 'media-left' do
+              = image_tag video.cover_photo.square, class: 'media-object'
             .media-body
-              - if novel.above_18
+              - if video.above_18
                 %p.label.danger 18+
               - else
                 %p.label.safe for all
-              = link_to novel_path(novel) do
-                %h4.media-heading= novel.title
-              %p.description= novel.abstract
+              = link_to video_path(video) do
+                %h4.media-heading= video.title
+              %p.description= video.abstract
               %p.extra-info
                 %span
                   Author:
-                  = link_to novel.user.name, user_path(novel.user)
+                  = link_to video.user.name, user_path(video.user)
                 %br
                 %span
                   Likes:
-                  = novel.likes
+                  = video.likes
                 %span.tags.pull-right
-                  - novel.genres.each do |genre|
+                  - video.genres.each do |genre|
                     %i= genre.name.titleize
     - if action_name != 'search'
       .col-sm-12.text-center
         %nav
           %ul.pagination
-            = paginate @novels
+            = paginate @videos
   - else
-    %h4 No novels found
+    .col-sm-12
+      %h4 No videos found

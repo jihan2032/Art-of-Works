@@ -1,16 +1,16 @@
 - if action_name == 'search'
   %ol.breadcrumb
     %li.recent
-      = link_to 'Most Recent', search_novels_path(filter: 'recent'), method: :patch, remote: true
+      = link_to 'Most Recent', search_videos_path(filter: 'recent'), method: :patch, remote: true
     %li.random
-      = link_to 'Random', search_novels_path(filter: 'random'), method: :patch, remote: true
+      = link_to 'Random', search_videos_path(filter: 'random'), method: :patch, remote: true
     %li.popular.active_filter
-      = link_to 'Most Popular', search_novels_path, method: :patch, remote: true
+      = link_to 'Most Popular', search_videos_path, method: :patch, remote: true
 - else
   %ol.breadcrumb
     %li.recent
-      = link_to 'Most Recent', novels_path(filter: 'recent'), remote: true
+      = link_to 'Most Recent', videos_path(filter: 'recent'), remote: true
     %li.random
-      = link_to 'Random', novels_path(filter: 'random'), remote: true
+      = link_to 'Random', videos_path(filter: 'random'), remote: true
     %li.popular.active_filter
-      = link_to 'Most Popular', novels_path, remote: true
+      = link_to 'Most Popular', videos_path, remote: true

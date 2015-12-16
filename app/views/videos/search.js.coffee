@@ -1,4 +1,4 @@
-$('.novels_part').html("<%=j render partial: 'novels' %>")
+$('.videos_part').html("<%=j render partial: 'videos' %>")
 $('.filter_tabs').html("<%=j render partial: 'filter_tabs' %>")
 if <%= params[:filter].present? %>
   $('li.popular').removeClass 'active_filter'

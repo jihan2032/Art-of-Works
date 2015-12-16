@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128124937) do
+ActiveRecord::Schema.define(version: 20151202085540) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -36,6 +36,11 @@ ActiveRecord::Schema.define(version: 20151128124937) do
     t.integer  "novel_id",   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "genres_videos", force: :cascade do |t|
+    t.integer "genre_id", limit: 4
+    t.integer "video_id", limit: 4
   end
 
   create_table "liked_chapters", force: :cascade do |t|
@@ -97,14 +102,14 @@ ActiveRecord::Schema.define(version: 20151128124937) do
 
   create_table "video_tracks", force: :cascade do |t|
     t.string   "title",      limit: 255
-    t.integer  "track_no",   limit: 4
+    t.integer  "track_no",   limit: 4,     default: 0
     t.integer  "parent_id",  limit: 4
     t.integer  "video_id",   limit: 4
     t.integer  "user_id",    limit: 4
     t.text     "abstract",   limit: 65535
     t.string   "link_url",   limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "videos", force: :cascade do |t|

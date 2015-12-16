@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [ :show, :edit, :update, :my_readings, :my_writings ]
+  before_action :set_user, only: [ :show, :edit, :update, :my_readings, :my_writings, :my_viewed_videos, :my_created_videos ]
 
   def show
     @novels = @user.read_novels
@@ -24,6 +24,14 @@ class UsersController < ApplicationController
 
   def my_writings
     @novels = @user.novels.page params[:page]
+  end
+
+  def my_created_videos
+    @novels = @user.videos.page params[:page]
+  end
+
+  def my_viewed_videos
+    @novels = @user.viewed_videos.page params[:page]
   end
 
 private

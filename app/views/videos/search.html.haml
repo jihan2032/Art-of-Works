@@ -7,7 +7,7 @@
         %ol.breadcrumb
           %li
             = link_to 'Home', root_path
-          %li.active Novels
+          %li.active videos
     .row
       .col-sm-4.col-sm-offset-8.list-filter.text-center
         .filter_tabs
@@ -15,9 +15,9 @@
     .row
       = render 'search_side_bar'
       .col-md-9
-        - if @novels.any?
-          .novels_part
-            = render 'novels'
+        - if @videos.any?
+          .videos_part
+            = render 'videos'
         - else
           .card
-            %h4 No novels found
+            %h4 No videos found

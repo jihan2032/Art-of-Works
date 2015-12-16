@@ -17,7 +17,7 @@ class VideoTracksController < ApplicationController
       session.delete(:parent_video_track_id)
     end
     if @video_track.save
-      redirect_to video_path(@video_track.video.id, video_track_no: @video_track.track_no, video_track_version_id: @video_track.id), notice: 'Video track was successfully created.'
+      redirect_to video_path(@video_track.video.id, track_no: @video_track.track_no, video_track_version_id: @video_track.id), notice: 'Video track was successfully created.'
     else
       @video = video.find params[:video_id]
       render :new
@@ -25,7 +25,7 @@ class VideoTracksController < ApplicationController
   end
 
   def show
-    @video_track = video_track.find params[:id]
+    @video_track = VideoTrack.find params[:id]
   end
 
   def edit
@@ -34,7 +34,7 @@ class VideoTracksController < ApplicationController
   def update
     @video_track.update video_tracks_params
     if @video_track.save
-      redirect_to video_path(@video_track.video.id, video_track_no: @video_track.track_no, video_track_version_id: @video_track.id), notice: 'video_track was successfully updated.'
+      redirect_to video_path(@video_track.video.id, track_no: @video_track.track_no, video_track_version_id: @video_track.id), notice: 'video_track was successfully updated.'
     else
       render :edit
     end

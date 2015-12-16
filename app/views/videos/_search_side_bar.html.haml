@@ -1,5 +1,5 @@
 .col-sm-3.search-filters.main-content.cards-list
-  = form_tag search_novels_path, method: :patch, remote: true, id: "search_form", class: 'padded-form' do |f|
+  = form_tag search_videos_path, method: :patch, remote: true, id: "search_form", class: 'padded-form' do |f|
     %legend Filters
     .form-group
       - Genre.all.each do |genre|

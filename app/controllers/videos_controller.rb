@@ -1,4 +1,4 @@
-class videosController < ApplicationController
+class VideosController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :authenticate_author, only: [:edit, :update]
   before_action :set_video, only: [ :show, :edit, :update, :add_to_views, :remove_from_views, :like_video_track, :unlike_video_track ]
@@ -11,8 +11,10 @@ class videosController < ApplicationController
       elsif params[:filter] == 'recent'
         @videos = Video.order(updated_at: :desc).page params[:page]
       end
+    elsif Video.has_tracks
+      @videos = Kaminari.paginate_array(Video.has_tracks.sort_by(&:likes).reverse).page params[:page]
     else
-      @videos = Kaminari.paginate_array(Video.has_video_tracks.sort_by(&:likes).reverse).page params[:page]
+      @videos = Video.where(id: nil)
     end
     respond_to do |format|
       format.js
@@ -38,7 +40,7 @@ class videosController < ApplicationController
         end
       end
     else #nothing in the search box
-      @videos = Video.has_video_tracks
+      @videos = Video.has_tracks
     end
     # Genre filter
     videos = Video.where(id: nil)
@@ -68,23 +70,23 @@ class videosController < ApplicationController
 
   def create
     @video = Video.new videos_params
-    if @Video.save
-      redirect_to new_video_video_track_path(@video), notice: 'Please write the first video_track to complete your video creation'
+    if @video.save
+      redirect_to new_video_video_track_path(@video), notice: 'Please add the first video track to complete your video creation'
     else
       render :new
     end
   end
 
   def show
-    chosen_video_track     = params[:video_track_no] || 1
-    @current_video_tracks  = VideoTrack.where(video_id: @Video.id, video_track_no: chosen_video_track)
-    if @current_video_tracks.any?
-      @displayed_video_track = params[:video_track_version_id].present? ? VideoTrack.find(params[:video_track_version_id]) : @current_video_tracks.first
-      @after_video_tracks    = VideoTrack.where(parent_id: @displayed_VideoTrack.id)
-    end
+    chosen_video_track     = params[:track_no] || 1
+    # @current_video_tracks  = VideoTrack.where(video_id: @video.id, track_no: chosen_video_track)
+    # if @current_video_tracks.any?
+    #   @displayed_video_track = params[:video_track_version_id].present? ? VideoTrack.find(params[:video_track_version_id]) : @current_video_tracks.first
+    #   @after_video_tracks    = VideoTrack.where(parent_id: @displayed_VideoTrack.id)
+    # end
     #nadine
-    if @Video.video_tracks.any?
-      @grouped_video_tracks = @Video.video_tracks.group_by(&:video_track_no);
+    if @video.video_tracks.any?
+      @grouped_video_tracks = @video.video_tracks.group_by(&:track_no);
     end
   end
 
@@ -92,8 +94,8 @@ class videosController < ApplicationController
   end
 
   def update
-    @Video.update videos_params
-    if @Video.save
+    @video.update videos_params
+    if @video.save
       redirect_to videos_path, notice: 'video was successfully updated'
     else
       render :edit
@@ -101,8 +103,8 @@ class videosController < ApplicationController
   end
 
   def like_video_track
-    if @VideoTrack.present?
-      LikedVideoTrack.create(user_id: @user.id, video_track_id: @VideoTrack.id)
+    if @video_track.present?
+      LikedVideoTrack.create(user_id: @user.id, video_track_id: @video_track.id)
     end
     respond_to do |format|
       format.js
@@ -110,26 +112,26 @@ class videosController < ApplicationController
   end
 
   def unlike_video_track
-    if @VideoTrack.present?
-      LikedVideoTrack.where(user_id: @user.id, video_track_id: @VideoTrack.id).first.destroy
+    if @video_track.present?
+      LikedVideoTrack.where(user_id: @user.id, video_track_id: @video_track.id).first.destroy
     end
     respond_to do |format|
       format.js
     end
   end
 
-  def add_to_readings
-    if @VideoTrack.present?
-      ReadVideoTrack.create(user_id: @user.id, video_track_id: @VideoTrack.id)
+  def add_to_viewed_videos
+    if @video_track.present?
+      ViewedVideoTrack.create(user_id: @user.id, video_track_id: @video_track.id)
     end
     respond_to do |format|
       format.js
     end
   end
 
-  def remove_from_readings
-    if @VideoTrack.present?
-      ReadVideoTrack.where(user_id: @user.id, video_track_id: @VideoTrack.id).first.destroy
+  def remove_from_viewed_videos
+    if @video_track.present?
+      ViewedVideoTrack.where(user_id: @user.id, video_track_id: @video_track.id).first.destroy
     end
     respond_to do |format|
       format.js
@@ -139,8 +141,8 @@ class videosController < ApplicationController
 private
   def set_video
     @video = Video.find params[:id]
-    if @Video.video_tracks.any?
-      @grouped_video_tracks = @Video.video_tracks.group_by(&:video_track_no);
+    if @video.video_tracks.any?
+      @grouped_video_tracks = @video.video_tracks.group_by(&:track_no);
     end
   end
 
@@ -151,8 +153,8 @@ private
 
   def authenticate_author
     @video = Video.find params[:id]
-    if @Video.user != current_user
-      redirect_to root_path, alert: 'You are not authorized to do such action'
+    if @video.user != current_user
+      redirect_to root_path, alert: 'You are not authorized to do such an action'
     end
   end
 

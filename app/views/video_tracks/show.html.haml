@@ -1,0 +1,38 @@
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            = link_to 'Home', root_path
+          %li
+            = link_to 'videos', root_path
+          %li
+            = link_to @video.title, video_path(@video)
+          - if @video_track.parent
+            %li
+              = "..."
+            %li
+              = link_to @video_track.parent.title, video_video_track_path(@video, @video_track.parent)
+            %li.active= @video_track.title
+      - if @video_track.user == current_user
+        .col-sm-1
+          = link_to "Edit", edit_video_video_track_path(@video, @video_track), class: "btn btn-primary"
+      - if @video_track.track_no != 1
+        .col-sm-2
+          = link_to "Create new version", new_video_video_track_path(@video, parent_video_track_id: @video_track.parent_id), class: "btn btn-primary"
+      .col-sm-2
+        = link_to "Create next video_track", new_video_video_track_path(@video, parent_video_track_id: @video_track.id), class: "btn btn-primary"
+      .col-sm-7
+        .row.video_track_actions
+          = render 'video_track_actions'
+    .row.about-video
+      .col-sm-9
+        .video_track-title
+          %h1= @video_track.title
+        .video_track-abstract
+          %p= @video_track.abstract
+        .video_track-content
+          %p= link_to 'Watch Video', @video_track.link_url, target: '_blank'
