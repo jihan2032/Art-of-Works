@@ -45,11 +45,11 @@
   .col-sm-11.text-center
     %h3 Chapters
 -if @novel.chapters.any?
-  - @grouped_chapters.keys.sort.each do |key|
+  - @grouped_chapters.keys.sort.each_with_index do |key, index|
     -value = @grouped_chapters[key]
     .row.level
       .col-sm-2
-        %h5.v-center.level-title
+        %h5.v-center.level-title.text-center
           Chapter
           = key
           Versions
@@ -90,9 +90,10 @@
         /   = link_to "unlike", unlike_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-warning"
         / - else
         /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
-    .row
-      .col-sm-1.col-sm-offset-6.arrow-down
-        = image_tag 'svg/arrow-down.svg'
+    -if index != @grouped_chapters.keys.length - 1
+      .row
+        .col-sm-1.col-sm-offset-6.arrow-down
+          = image_tag 'svg/arrow-down.svg'
   - if current_user
     .row
       .col-sm-1.col-sm-offset-5.text-center
