@@ -147,17 +147,12 @@ function replaceSlides(slider, chapters) {
 function filterForward(chapterId, chapterNumber, chaptersCount) {
   //unfilter the following levels.
   var parentIds = [chapterId];
-  for(var i = chapterNumber + 1; i < chaptersCount; i++) {
-    console.log(parentIds);
+  for(var i = chapterNumber + 1; i <= chaptersCount; i++) {
     var nextSlider = $('.slider-' + i);
-    nextSlider.find('.chapter-picked').removeClass('.chapter-picked');
+    var slides = nextSlider.slick('getSlick').$slides;
+    nextSlider.find('.chapter-picked').removeClass('chapter-picked');
     nextSlider.slick('slickUnfilter');
-    // var temp = nextSlider.slick('getSlick').$slides.toArray().map(function(i, e) {
-    //   var tempId = $(e).data('chapter-id');
-    //   return tempId;
-    // });
-    // console.log(temp);
-    var tempParentIds = nextSlider.slick('getSlick').$slides.toArray().map(function(e, index) {
+    var tempParentIds = slides.toArray().map(function(e, index) {
       var tempId = $(e).data('chapter-id');
       return tempId;
     });
@@ -166,17 +161,25 @@ function filterForward(chapterId, chapterNumber, chaptersCount) {
       return $.inArray(self.data('parent-id'), parentIds) != -1;
     });
     parentIds = tempParentIds;
-    // var temp = nextSlider.slick('getSlick').$slides.toArray().map(function(i, e) {
-    //   console.log(i);
-    //   var tempId = $(e).data('chapter-id');
-    //   return tempId;
-    // });
-    // console.log(temp);
   }
 }
 
 function filterBackward(parentId, chapterNumber) {
-
+  //show only this track in previous levels
+  var currentSlider;
+  var previousSlider = $('.slider-' + chapterNumber);
+  for(var i = chapterNumber - 1; i > 0; i--) {
+    var currentSlider = previousSlider;
+    var previousSlider = $('.slider-' + i);
+    previousSlider.find('.chapter-picked').removeClass('chapter-picked');
+    previousSlider.slick('slickUnfilter');
+    currentSlider.slick('slickUnfilter');
+    var parent = previousSlider.find('[data-chapter-id="' + parentId + '"]');
+    previousSlider.slick('slickGoTo', parent.data('slick-index'));
+    currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
+    parent.addClass('chapter-picked');
+    parentId = parent.data('parent-id');
+  }
 }
 
 function clearEmptyRows(sliders) {
@@ -235,11 +238,12 @@ $(document).ready(function(){
       });
       slider.slick({
         slidesToShow: 3,
-        slidesToScroll: 1,
-        centerPadding: '0px',
-        adaptiveHeight: true,
-        draggable: false,
-        infinite: true
+      slidesToScroll: 1,
+      centerPadding: '0px',
+      centerMode: true,
+      adaptiveHeight: true,
+      draggable: false,
+      infinite: true
       });
     });
   } else {
@@ -276,35 +280,38 @@ $(document).ready(function(){
 });
 
 
-$(document).on('click', '.slide', function (){
+$(document).on('click', '.slide', function (e){
   var self = $(this);
+  console.log('clicked on: ', self.find('h5 a').html());
   var slider = self.closest('.slider');
   var sl = slider.slick('getSlick');
   var index = self.data('slick-index');
   var sliders = $('.slider');
-  // goto the picked slide
-  slider.find('.chapter-picked').removeClass('chapter-picked');
-  self.addClass('chapter-picked');
-  slider.slick('slickGoTo', index);
-
-  //start filtering process
   var chapterNumber = slider.data('chapter-number');
   var chapterId = self.data('chapter-id');
   var parentId = self.data('parent-id');
+  if(chapterNumber == 1) {
+    // just to skip the following if conditions
+  } else if (self.hasClass('chapter-picked')) {
+    return true;
+  } else {
+    e.preventDefault();
+  }
 
-  // if(chapterNumber == 1) {
-  //   return;
-  // } else if (chapterNumber == 2) {
-  //   filterForward(chapterId, chapterNumber, sliders.length)
-  // } else if(chapterNumber = sliders.length) {
-  //   filterBackward(chapterNumber);
-  // } else {
-    filterForward(chapterId, chapterNumber, sliders.length);
-    filterBackward(parentId, chapterNumber);
-  // }
+  // goto the picked slide
+  slider.find('.chapter-picked').removeClass('chapter-picked');
+  // self.addClass('chapter-picked');
+  self.parent().find('[data-chapter-id="' + self.data('chapter-id') + '"]').addClass('chapter-picked');
+  slider.slick('slickGoTo', index);
+
+  //start filtering process
+
+  filterForward(chapterId, chapterNumber, sliders.length);
+  filterBackward(parentId, chapterNumber);
 
   //remove add chapter button from empty rows
   clearEmptyRows(sliders);
+  return false;
 });
 
 $(document).on('submit', '.quill-form', function(e) {
