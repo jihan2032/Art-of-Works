@@ -2,19 +2,19 @@
   = error_messages_for(@video)
   = f.hidden_field :user_id, value: current_user.id if current_user
   - if action_name == 'new'
-    %legend Create Video
+    %legend Create Playlist
   - else
-    %legend Edit Video
+    %legend Edit Playlist
     = image_tag @video.cover_photo.square
   .form-group
-    = f.label :cover_photo, "Video Cover Image"
+    = f.label :cover_photo, "Playlist Cover Image"
     = f.file_field :cover_photo, class: 'form-control'
   .form-group
     = f.label :title, "Title"
-    = f.text_field :title, required: true, placeholder: 'Video Title', class: 'form-control'
+    = f.text_field :title, required: true, placeholder: 'Playlist Title', class: 'form-control'
   .form-group
     = f.label :abstract, "Description"
-    = f.text_area :abstract, required: true, placeholder: 'Brief description about the video', rows: 5, class: 'form-control'
+    = f.text_area :abstract, required: true, placeholder: 'Brief description about the playlist', rows: 5, class: 'form-control'
   .form-group
     = f.label :genre, "Genres"
     = f.collection_select :genre_ids, Genre.order(:name), :id, :name_titleized, { prompt: 'Select Genres' }, { multiple: true, id: 'genres_select' }
@@ -26,5 +26,5 @@
         = f.label :above_18, 'Has rated content (+18)', class: 'radio inline label-control'
   .row
     .col-sm-4.col-sm-offset-8
-      = f.submit "Create Video", class: "btn btn-primary"
+      = f.submit "Create Playlist", class: "btn btn-primary"
       = link_to "Cancel", root_path, class: "btn btn-secondry"

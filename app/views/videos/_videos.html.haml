@@ -2,7 +2,7 @@
   - if action_name == 'index'
     .col-sm-4
       = link_to new_video_path, class: 'btn green' do
-        Add New video
+        Add New Playlist
         %i.fa.fa-plus
     .col-sm-4.col-sm-offset-4.list-filter.text-center
       .filter_tabs
@@ -40,4 +40,4 @@
             = paginate @videos
   - else
     .col-sm-12
-      %h4 No videos found
+      %h4 No playlists found

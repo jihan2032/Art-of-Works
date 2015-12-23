@@ -187,6 +187,7 @@ function filterBackward(parentId, chapterNumber) {
     var currentSlider = $('.slider-' + i);
     var nextSlider = $('.slider-' + (i + 1));
     unfilterSlider(currentSlider);
+
     var parent = currentSlider.find('[aria-describedby][data-chapter-id="' + parentId + '"]');
     currentSlider.slick('slickGoTo', parent.data('slick-index'));
     filterSlider(nextSlider, [parentId]);
@@ -328,14 +329,15 @@ $(document).on('click', '.slide', function (e){
   filterBackward(parentId, chapterNumber);
   self.parent()
     .find(
-      '[data-chapter-id="' 
-      + self.data('chapter-id') 
+      '[data-chapter-id="'
+      + self.data('chapter-id')
       + '"]'
     )
     .addClass('chapter-picked');
   //remove add chapter button from empty rows
   clearEmptyRows(sliders);
-  return false;
+  //TODO quick hack
+  return true;
 });
 
 $(document).on('submit', '.quill-form', function(e) {
