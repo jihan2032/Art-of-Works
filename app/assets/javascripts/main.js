@@ -140,6 +140,92 @@ function replaceSlides(slider, chapters) {
   chapters.forEach(function(chapter, index, array){
     slider.slick('slickAdd', chapter.html);
   });
+
+}
+
+
+function unfilterSlider(slider) {
+  slider.find('.chapter')
+    .removeClass('chapter-picked')
+    .removeClass('chapter-children');
+}
+
+function filterSlider(slider, parentIds) {
+  slider.find('.chapter').each(function(){
+    var self = $(this);
+    if($.inArray(self.data('parent-id'), parentIds) != -1) {
+      self.addClass('chapter-children');
+    }
+  });
+}
+
+function filterForward(chapterId, chapterNumber, chaptersCount) {
+  //unfilter the following levels.
+  var parentIds = [chapterId];
+  for(var i = chapterNumber + 1; i <= chaptersCount; i++) {
+    var nextSlider = $('.slider-' + i);
+    var slides = nextSlider.slick('getSlick').$slides;
+    unfilterSlider(nextSlider);
+    var tempParentIds = slides.toArray().map(function(e, index) {
+      var tempId = $(e).data('chapter-id');
+      return tempId;
+    });
+    filterSlider(nextSlider, parentIds);
+    parentIds = tempParentIds;
+  }
+}
+
+function filterBackward(parentId, chapterNumber) {
+  //show only this track in previous levels
+  var currentSlider;
+  var previousSlider = $('.slider-' + chapterNumber);
+  for(var i = chapterNumber - 1; i > 0; i--) {
+    var currentSlider = previousSlider;
+    var previousSlider = $('.slider-' + i);
+    unfilterSlider(previousSlider);
+    unfilterSlider(currentSlider);
+    var parent = previousSlider.find('[data-chapter-id="' + parentId + '"]');
+    previousSlider.slick('slickGoTo', parent.data('slick-index'));
+    
+    // currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
+    filterSlider(currentSlider, [parentId]);
+    parent.addClass('chapter-picked');
+    parentId = parent.data('parent-id');
+  }
+}
+
+function clearEmptyRows(sliders) {
+  // var previousIsEmpty = false;
+  // sliders.each(function() {
+  //   var slider = $(this);
+  //   var sl = slider.slick('getSlick');
+  //   var parentRow = slider.closest('.level');
+  //   var addNewVersionBtn = parentRow.find('.slider-add-chapter');
+  //   var sliderInnerList = slider.find('.slick-list');
+  //   sliderInnerList.find('.no-chapter').remove();
+  //   // console.log(addNewVersionBtn);
+  //   if(sl.$slides.length == 0 || previousIsEmpty) {
+  //     addNewVersionBtn.hide();
+  //     if(previousIsEmpty == false) {
+  //       addNewVersionBtn.show();
+  //       previousIsEmpty = true;
+  //     }
+  //     slider.slick('slickFilter', '.no-chapter');
+  //     slider.css('min-height', '180px');
+  //     sliderInnerList.append('<p style="display:block;width:100%;text-align:center;font-weight:400;font-size:20px;margin-top:60px" class="no-chapter"> No Chapters in this track</p>')
+  //   } else {
+  //     addNewVersionBtn.show();
+  //   }
+  // });
+  sliders.each(function(){
+    var slider = $(this);
+    var slide = slider.find('.chapter-picked')
+    if(slide.length == 0) {
+      slide = slider.find('.chapter-children');
+    }
+    console.log(slide.find('h5 a').html(), slide.data('slick-index'));
+    slider.slick('slickGoTo', slide.data('slick-index'));
+  });
 }
 
 // tracks = buildTracks();
@@ -172,14 +258,12 @@ $(document).ready(function(){
       });
       slider.slick({
         slidesToShow: 3,
-        slidesToScroll: 1,
-        centerPadding: '10px',
-        centerMode: true,
-        adaptiveHeight: true,
-        draggable: false,
-        infinite: true
-        // asNavFor: '.slider-3',
-        // focusOnSelect: true
+      slidesToScroll: 1,
+      centerPadding: '0px',
+      centerMode: true,
+      adaptiveHeight: true,
+      draggable: false,
+      infinite: true
       });
     });
   } else {
@@ -191,8 +275,6 @@ $(document).ready(function(){
       adaptiveHeight: true,
       draggable: false,
       infinite: true
-      // asNavFor: '.slider-3',
-      // focusOnSelect: true
     });
   }
   // $('.slider-1, .slider-2, .slider-3').slick('slickGoTo', 0);
@@ -218,143 +300,41 @@ $(document).ready(function(){
 });
 
 
-/* global Maplace */
+$(document).on('click', '.slide', function (e){
+  var self = $(this);
+  console.log('clicked on: ', self.find('h5 a').html());
+  var slider = self.closest('.slider');
+  var sl = slider.slick('getSlick');
+  var index = self.data('slick-index');
+  var sliders = $('.slider');
+  var chapterNumber = slider.data('chapter-number');
+  var chapterId = self.data('chapter-id');
+  var parentId = self.data('parent-id');
+  if(chapterNumber == 1) {
+    // just to skip the following if conditions
+  } else if (self.hasClass('chapter-picked')) {
+    return true;
+  } else {
+    e.preventDefault();
+  }
 
-// // $('.js-filter').on('click', function(){
-// //   if (filtered === false) {
-// //     $('.filtering').slick('slickFilter',':even');
-// //     $(this).text('Unfilter Slides');
-// //     filtered = true;
-// //   } else {
-// //     $('.filtering').slick('slickUnfilter');
-// //     $(this).text('Filter Slides');
-// //     filtered = false;
-// //   }
-// // });
+  // goto the picked slide
+  slider.slick('slickGoTo', index);
 
-// $('.slider-1').on('click', '.slick-active.slick-center', function() {
-//   var slider1 = $('.slider-1');
-//   var slider2 = $('.slider-2');
-//   var slider3 = $('.slider-3');
-  
-//   var slider1ChapterNumber = parseInt(slider1.prop('data-chapter'));
-//   var slider2ChapterNumber = parseInt(slider2.prop('data-chapter'));
-//   var slider3ChapterNumber = parseInt(slider3.prop('data-chapter'));
-//   if (slider1ChapterNumber <= 1) {
-//     return;
-//   }//endif
-//   replaceSlides(slider1, chaptersTree[slider1ChapterNumber - 2]);
-//   replaceSlides(slider2, chaptersTree[slider2ChapterNumber - 2]);
-//   replaceSlides(slider3, chaptersTree[slider3ChapterNumber - 2]);
-//   slider1.prop('data-chapter', slider1ChapterNumber - 1)
-//   slider2.prop('data-chapter', slider2ChapterNumber - 1)
-//   slider3.prop('data-chapter', slider3ChapterNumber - 1)
-// });
+  //start filtering process
 
-// $('.slider-2 .slick-center').on('click', function() {
-
-// });
-
-// $('.slider-3').on('click', '.slick-active.slick-center', function() {
-//   var slider1 = $('.slider-1');
-//   var slider2 = $('.slider-2');
-//   var slider3 = $('.slider-3');
-  
-//   var slider1ChapterNumber = parseInt(slider1.prop('data-chapter'));
-//   var slider2ChapterNumber = parseInt(slider2.prop('data-chapter'));
-//   var slider3ChapterNumber = parseInt(slider3.prop('data-chapter'));
-//   if ( maxChapterNumber <= slider3ChapterNumber) {
-//     return;
-//   }//endif
-//   replaceSlides(slider1, chaptersTree[slider1ChapterNumber]);
-//   replaceSlides(slider2, chaptersTree[slider2ChapterNumber]);
-//   replaceSlides(slider3, chaptersTree[slider3ChapterNumber]);
-//   slider1.prop('data-chapter', slider1ChapterNumber + 1)
-//   slider2.prop('data-chapter', slider2ChapterNumber + 1)
-//   slider3.prop('data-chapter', slider3ChapterNumber + 1)
-// });
-
-// $('.slider-1').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-//   var id = slick.$slides[nextSlide].id;
-//   $('.slider-2').slick('slickFilter', '[data-parent=' + id + ']');
-// });
-
-// $('.slider-2').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-//   var id = slick.$slides[nextSlide].id;
-//   $('.slider-3').slick('slickFilter', '[data-parent=' + id + ']');
-// });
-
-// $('.slider-3').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-//   // var id = slick.$slides[nextSlide].id;
-//   // $('.slider-3').slick('slickFilter', '[data-parent=' + id + ']');
-// });
-$(document).on('click', '.slide', function (){
-    var self = $(this);
-    var slider = self.closest('.slider');
-    var sl = slider.slick('getSlick');
-    var index = self.data('slick-index');
-    if(sl.$slides.length <= 3) {
-      slider.find('.slick-center').removeClass('slick-center');
-      self.addClass('slick-center');
-    } else {
-      slider.slick('slickGoTo', index);
-    }
-
-    var chapterNumber = slider.data('chapter-number');
-    var nextSlider = $('.slider-' + (chapterNumber + 1));
-    if(nextSlider.length == 0) {
-      return;
-    }
-    var chapterId = self.data('chapter-id');
-    nextSlider.slick('slickFilter', '.slide[data-parent-id=' + chapterId + ']');
-    nextSlider.find('.slick-center').removeClass('.slick-center');
-    var i = chapterNumber + 2
-    nextSlider = $('.slider-' + i)
-     while(nextSlider.length != 0) {
-      nextSlider.slick('slickUnfilter');
-      nextSlider.find('.slick-center').removeClass('.slick-center');
-      i++;
-      nextSlider = $('.slider-' + i);
-    } 
-    var previousIsEmpty = false;
-
-    $('.slider').each(function() {
-      var slider = $(this);
-      var sl = slider.slick('getSlick');
-      var parentRow = slider.closest('.level');
-      var addNewVersionBtn = parentRow.find('.slider-add-chapter');
-      var sliderInnerList = slider.find('.slick-list');
-      sliderInnerList.find('.no-chapter').remove();
-      console.log(addNewVersionBtn);
-      if(sl.$slides.length == 0 || previousIsEmpty) {
-        addNewVersionBtn.hide();
-        if(previousIsEmpty == false) {
-          addNewVersionBtn.show();
-          previousIsEmpty = true;
-        }
-        slider.slick('slickFilter', '.no-chapter');
-        slider.css('min-height', '180px');
-        
-        sliderInnerList.append('<p style="display:block;width:100%;text-align:center;font-weight:400;font-size:20px;margin-top:60px" class="no-chapter"> No Chapters here</p>')
-      } else {
-        addNewVersionBtn.show();
-      }
-    });
-});
-
-$(document).on('beforeChange', '.slider', function(e, sl, n, p) {
-    $(sl.$slides[n]).blur();
-});
-
-$(document).on('afterChange', '.slider', function(e, sl, n, p) {
-  $(this).find('.slick-center').click();
-});
-
-$(document).on('init', '.slider', function(e, sl){
-    var self = $(this);
-    if(!self.hasClass('slider-1')) {
-        $('.slick-center').removeClass('slick-center');
-    }
+  filterForward(chapterId, chapterNumber, sliders.length);
+  filterBackward(parentId, chapterNumber);
+  self.parent()
+    .find(
+      '[data-chapter-id="' 
+      + self.data('chapter-id') 
+      + '"]'
+    )
+    .addClass('chapter-picked');
+  //remove add chapter button from empty rows
+  clearEmptyRows(sliders);
+  return false;
 });
 
 $(document).on('submit', '.quill-form', function(e) {
@@ -371,7 +351,7 @@ $(document).on('click', '.slider-add-chapter', function(e) {
     return false;
   }
   var parentSlider = $('.slider-' + (chapterNumber - 1));
-  var parentChapterInput = parentSlider.find('.slick-center input[type="hidden"]');
+  var parentChapterInput = parentSlider.find('.chapter-picked input[type="hidden"]');
   if(parentChapterInput.length == 0) {
     alert("Please pick a chapter from previous slider");
     return;
@@ -381,5 +361,5 @@ $(document).on('click', '.slider-add-chapter', function(e) {
 });
 
 $( window).resize(function() {
-    $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
-  });
+  $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
+});
