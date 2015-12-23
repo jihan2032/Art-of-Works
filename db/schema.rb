@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202085540) do
+ActiveRecord::Schema.define(version: 20151223170306) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20151202085540) do
 
   create_table "video_tracks", force: :cascade do |t|
     t.string   "title",      limit: 255
-    t.integer  "track_no",   limit: 4,     default: 0
+    t.integer  "track_no",   limit: 4,     default: 1
     t.integer  "parent_id",  limit: 4
     t.integer  "video_id",   limit: 4
     t.integer  "user_id",    limit: 4
