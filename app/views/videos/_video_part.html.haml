@@ -55,7 +55,7 @@
           Versions
       .col-sm-9
         .slider{:class => 'slider-' + key.to_s, "data-chapter-number" => key.to_s}
-          - value.each do|video_track|
+          - value.sort_by{|obj| obj.parent_id}.each do|video_track|
             .slide.chapter{'data-parent-id' => video_track.parent_id, 'data-chapter-id' => video_track.id}
               .slide-content
                 .hidden-inputs
