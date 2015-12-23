@@ -186,7 +186,7 @@ function filterBackward(parentId, chapterNumber) {
     unfilterSlider(currentSlider);
     var parent = previousSlider.find('[data-chapter-id="' + parentId + '"]');
     previousSlider.slick('slickGoTo', parent.data('slick-index'));
-    
+
     // currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
     filterSlider(currentSlider, [parentId]);
     parent.addClass('chapter-picked');
@@ -327,14 +327,15 @@ $(document).on('click', '.slide', function (e){
   filterBackward(parentId, chapterNumber);
   self.parent()
     .find(
-      '[data-chapter-id="' 
-      + self.data('chapter-id') 
+      '[data-chapter-id="'
+      + self.data('chapter-id')
       + '"]'
     )
     .addClass('chapter-picked');
   //remove add chapter button from empty rows
   clearEmptyRows(sliders);
-  return false;
+  //TODO quick hack
+  return true;
 });
 
 $(document).on('submit', '.quill-form', function(e) {
