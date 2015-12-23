@@ -31,8 +31,18 @@
                       = link_to 'My Writings', my_writings_user_path(current_user)
                   %li{:role => "presentation"}
                     = link_to 'All Novels', root_path
-              %li
-                = link_to 'Playlists', videos_path
+              %li.dropdown
+                %a#about-menu.dropdown-toggle{"aria-expanded" => "true", "data-toggle" => "dropdown", :href => "#"}
+                  Playlists
+                  %span.caret
+                %ul.dropdown-menu{"aria-labelledby" => "about-menu", :role => "menu"}
+                  - if current_user
+                    %li{:role => "presentation"}
+                      = link_to 'My Viewed Playlists', my_viewed_videos_user_path(current_user)
+                    %li{:role => "presentation"}
+                      = link_to 'My Playlists', my_created_videos_user_path(current_user)
+                  %li{:role => "presentation"}
+                    = link_to 'All Playlists', videos_path
               %li
                 %a{:href => "#"} About
               %li

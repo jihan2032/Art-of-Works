@@ -10,6 +10,7 @@
           %li.active My Readings
     - if @novels.any?
       .novels_part
-        = render 'read_novels'
+        / = render 'read_novels'
+        = render 'novels/novels'
     - else
       %h4 No readings yet

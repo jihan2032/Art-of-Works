@@ -1,0 +1,16 @@
+.fluid-container.main-container
+  .container
+    .row
+      .col-sm-12.page-title
+        %h1 My Playlists
+      .col-sm-12
+        %ol.breadcrumb
+          %li
+            = link_to 'Home', root_path
+          %li.active My Playlists
+    - if @videos.any?
+      .videos_part
+        = render 'videos/videos'
+    - else
+      %h4 No created playlists yet
+      = link_to 'Click here to create your first', new_video_path
