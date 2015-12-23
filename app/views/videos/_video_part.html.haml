@@ -84,7 +84,7 @@
                   / = link_to "Create next video_track", new_video_video_track_path(@video, parent_video_track_id: video_track.id), class: "btn btn-primary"
       - if current_user && key != 1
         .col-sm-1
-          %input.slider-add-video_track{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-video_track-number' => key}
+          %input.slider-add-chapter{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add New Version", 'data-chapter-number' => key}
         / it's unnecessary to display like button in this view
         / - if current_user && current_user.like_video_track?(video_track)
         /   = link_to "unlike", unlike_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-warning"
@@ -97,11 +97,11 @@
   - if current_user
     .row
       .col-sm-1.col-sm-offset-5.text-center
-        %input.slider-add-video_track{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next video_track", 'data-video_track-number' => ((@grouped_video_tracks.max_by{|k,v| k}[0]) || 0 + 1)}
+        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next video  track", 'data-chapter-number' => ((@grouped_video_tracks.max_by{|k,v| k}[0]) || 0 + 1)}
 - else
   .row
     .col-sm-12.text-center
       %p
         No video tracks created yet
         -if @video.author?(current_user)
-          = link_to "Create the first video_track", new_video_video_track_path(@video), class: "btn btn-secondry"
+          = link_to "Create the first video track", new_video_video_track_path(@video), class: "btn btn-secondry"

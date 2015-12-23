@@ -163,32 +163,34 @@ function filterForward(chapterId, chapterNumber, chaptersCount) {
   //unfilter the following levels.
   var parentIds = [chapterId];
   for(var i = chapterNumber + 1; i <= chaptersCount; i++) {
-    var nextSlider = $('.slider-' + i);
-    var slides = nextSlider.slick('getSlick').$slides;
-    unfilterSlider(nextSlider);
-    var tempParentIds = slides.toArray().map(function(e, index) {
-      var tempId = $(e).data('chapter-id');
-      return tempId;
-    });
-    filterSlider(nextSlider, parentIds);
+    if(i == 3) {
+      console.log(3);
+    }
+    var currentSlider = $('.slider-' + i);
+    var currentSlides = currentSlider.slick('getSlick').$slides;
+    unfilterSlider(currentSlider);
+    filterSlider(currentSlider, parentIds);
+    var tempParentIds = currentSlides.toArray()
+      .filter(function(e) {
+        return $(e).hasClass('chapter-children');
+      })
+      .map(function(e, index) {
+        return $(e).data('chapter-id');
+      });
     parentIds = tempParentIds;
   }
 }
 
 function filterBackward(parentId, chapterNumber) {
-  //show only this track in previous levels
-  var currentSlider;
-  var previousSlider = $('.slider-' + chapterNumber);
+  //show only this track in current levels
   for(var i = chapterNumber - 1; i > 0; i--) {
-    var currentSlider = previousSlider;
-    var previousSlider = $('.slider-' + i);
-    unfilterSlider(previousSlider);
+    var currentSlider = $('.slider-' + i);
+    var nextSlider = $('.slider-' + (i + 1));
     unfilterSlider(currentSlider);
-    var parent = previousSlider.find('[data-chapter-id="' + parentId + '"]');
-    previousSlider.slick('slickGoTo', parent.data('slick-index'));
 
-    // currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
-    filterSlider(currentSlider, [parentId]);
+    var parent = currentSlider.find('[aria-describedby][data-chapter-id="' + parentId + '"]');
+    currentSlider.slick('slickGoTo', parent.data('slick-index'));
+    filterSlider(nextSlider, [parentId]);
     parent.addClass('chapter-picked');
     parentId = parent.data('parent-id');
   }
@@ -219,9 +221,9 @@ function clearEmptyRows(sliders) {
   // });
   sliders.each(function(){
     var slider = $(this);
-    var slide = slider.find('.chapter-picked')
+    var slide = slider.find('.chapter-picked[aria-describedby]')
     if(slide.length == 0) {
-      slide = slider.find('.chapter-children');
+      slide = slider.find('.chapter-children[aria-describedby]');
     }
     console.log(slide.find('h5 a').html(), slide.data('slick-index'));
     slider.slick('slickGoTo', slide.data('slick-index'));
@@ -322,7 +324,7 @@ $(document).on('click', '.slide', function (e){
   slider.slick('slickGoTo', index);
 
   //start filtering process
-
+  unfilterSlider(slider);
   filterForward(chapterId, chapterNumber, sliders.length);
   filterBackward(parentId, chapterNumber);
   self.parent()
