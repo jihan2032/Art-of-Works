@@ -35,4 +35,5 @@
         .video_track-abstract
           %p= @video_track.abstract
         .video_track-content
-          %p= link_to 'Watch Video', @video_track.link_url, target: '_blank'
+          .col-md-5.embed-container
+            = embed(@video_track.link_url)
