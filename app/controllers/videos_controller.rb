@@ -1,8 +1,8 @@
 class VideosController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :authenticate_author, only: [:edit, :update]
-  before_action :set_video, only: [ :show, :edit, :update, :add_to_views, :remove_from_views, :like_video_track, :unlike_video_track ]
-  before_action :set_video_track_and_user, only: [ :add_to_views, :remove_from_views, :like_video_track, :unlike_video_track ]
+  before_action :set_video, only: [ :show, :edit, :update, :add_to_viewed_videos, :remove_from_viewed_videos, :like_video_track, :unlike_video_track ]
+  before_action :set_video_track_and_user, only: [ :add_to_viewed_videos, :remove_from_viewed_videos, :like_video_track, :unlike_video_track ]
 
   def index
     if params[:filter].present?

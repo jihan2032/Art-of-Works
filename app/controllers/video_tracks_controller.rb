@@ -6,6 +6,7 @@ class VideoTracksController < ApplicationController
   def new
     @video_track = VideoTrack.new
     session[:parent_video_track_id] = params[:parent_video_track_id]
+    @video_track.parent = VideoTrack.find session[:parent_video_track_id] if params[:parent_video_track_id].present?
   end
 
   def create
