@@ -54,9 +54,9 @@
           = key
           Versions
       .col-sm-9
-        .slider{:class => 'slider-' + key.to_s, "data-video_track-number" => key.to_s}
+        .slider{:class => 'slider-' + key.to_s, "data-chapter-number" => key.to_s}
           - value.each do|video_track|
-            .slide{'data-parent-id' => video_track.parent_id, 'data-video_track-id' => video_track.id}
+            .slide.chapter{'data-parent-id' => video_track.parent_id, 'data-chapter-id' => video_track.id}
               .slide-content
                 .hidden-inputs
                   = hidden_field :video_track , :id, :id => 'video_track-' + video_track.id.to_s, :value => video_track.id
