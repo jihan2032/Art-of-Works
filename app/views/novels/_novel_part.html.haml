@@ -55,8 +55,8 @@
           Versions
       .col-sm-9
         .slider{:class => 'slider-' + key.to_s, "data-chapter-number" => key.to_s}
-          - value.each do|chapter|
-            .slide{'data-parent-id' => chapter.parent_id, 'data-chapter-id' => chapter.id}
+          - value.sort_by{|obj| obj.parent_id}.each do|chapter|
+            .slide.chapter{'data-parent-id' => chapter.parent_id, 'data-chapter-id' => chapter.id}
               .slide-content
                 .hidden-inputs
                   = hidden_field :chapter , :id, :id => 'chapter-' + chapter.id.to_s, :value => chapter.id

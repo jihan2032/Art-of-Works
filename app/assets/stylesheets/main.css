@@ -406,11 +406,19 @@ header.home .slide .btn-primary {
     background-color: #fff;
     padding: 10px 0
 }
+
+.slide.chapter {
+    opacity: 0.2;
+}
+
+.slide.chapter-children {
+    opacity: 0.7;
+}
+
 .slide.chapter-picked {
-    -ms-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-    color: #e67e22;
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
     opacity: 1;
     pointer-events: auto
 }

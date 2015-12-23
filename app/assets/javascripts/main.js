@@ -144,22 +144,33 @@ function replaceSlides(slider, chapters) {
 }
 
 
+function unfilterSlider(slider) {
+  slider.find('.chapter')
+    .removeClass('chapter-picked')
+    .removeClass('chapter-children');
+}
+
+function filterSlider(slider, parentIds) {
+  slider.find('.chapter').each(function(){
+    var self = $(this);
+    if($.inArray(self.data('parent-id'), parentIds) != -1) {
+      self.addClass('chapter-children');
+    }
+  });
+}
+
 function filterForward(chapterId, chapterNumber, chaptersCount) {
   //unfilter the following levels.
   var parentIds = [chapterId];
   for(var i = chapterNumber + 1; i <= chaptersCount; i++) {
     var nextSlider = $('.slider-' + i);
     var slides = nextSlider.slick('getSlick').$slides;
-    nextSlider.find('.chapter-picked').removeClass('chapter-picked');
-    nextSlider.slick('slickUnfilter');
+    unfilterSlider(nextSlider);
     var tempParentIds = slides.toArray().map(function(e, index) {
       var tempId = $(e).data('chapter-id');
       return tempId;
     });
-    nextSlider.slick('slickFilter', function() {
-      var self = $(this);
-      return $.inArray(self.data('parent-id'), parentIds) != -1;
-    });
+    filterSlider(nextSlider, parentIds);
     parentIds = tempParentIds;
   }
 }
@@ -171,40 +182,49 @@ function filterBackward(parentId, chapterNumber) {
   for(var i = chapterNumber - 1; i > 0; i--) {
     var currentSlider = previousSlider;
     var previousSlider = $('.slider-' + i);
-    previousSlider.find('.chapter-picked').removeClass('chapter-picked');
-    previousSlider.slick('slickUnfilter');
-    currentSlider.slick('slickUnfilter');
+    unfilterSlider(previousSlider);
+    unfilterSlider(currentSlider);
     var parent = previousSlider.find('[data-chapter-id="' + parentId + '"]');
     previousSlider.slick('slickGoTo', parent.data('slick-index'));
-    currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
+    
+    // currentSlider.slick('slickFilter', '[data-parent-id="' + parentId + '"]');
+    filterSlider(currentSlider, [parentId]);
     parent.addClass('chapter-picked');
     parentId = parent.data('parent-id');
   }
 }
 
 function clearEmptyRows(sliders) {
-  var previousIsEmpty = false;
-  sliders.each(function() {
+  // var previousIsEmpty = false;
+  // sliders.each(function() {
+  //   var slider = $(this);
+  //   var sl = slider.slick('getSlick');
+  //   var parentRow = slider.closest('.level');
+  //   var addNewVersionBtn = parentRow.find('.slider-add-chapter');
+  //   var sliderInnerList = slider.find('.slick-list');
+  //   sliderInnerList.find('.no-chapter').remove();
+  //   // console.log(addNewVersionBtn);
+  //   if(sl.$slides.length == 0 || previousIsEmpty) {
+  //     addNewVersionBtn.hide();
+  //     if(previousIsEmpty == false) {
+  //       addNewVersionBtn.show();
+  //       previousIsEmpty = true;
+  //     }
+  //     slider.slick('slickFilter', '.no-chapter');
+  //     slider.css('min-height', '180px');
+  //     sliderInnerList.append('<p style="display:block;width:100%;text-align:center;font-weight:400;font-size:20px;margin-top:60px" class="no-chapter"> No Chapters in this track</p>')
+  //   } else {
+  //     addNewVersionBtn.show();
+  //   }
+  // });
+  sliders.each(function(){
     var slider = $(this);
-    var sl = slider.slick('getSlick');
-    var parentRow = slider.closest('.level');
-    var addNewVersionBtn = parentRow.find('.slider-add-chapter');
-    var sliderInnerList = slider.find('.slick-list');
-    sliderInnerList.find('.no-chapter').remove();
-    // console.log(addNewVersionBtn);
-    if(sl.$slides.length == 0 || previousIsEmpty) {
-      addNewVersionBtn.hide();
-      if(previousIsEmpty == false) {
-        addNewVersionBtn.show();
-        previousIsEmpty = true;
-      }
-      slider.slick('slickFilter', '.no-chapter');
-      slider.css('min-height', '180px');
-      
-      sliderInnerList.append('<p style="display:block;width:100%;text-align:center;font-weight:400;font-size:20px;margin-top:60px" class="no-chapter"> No Chapters in this track</p>')
-    } else {
-      addNewVersionBtn.show();
+    var slide = slider.find('.chapter-picked')
+    if(slide.length == 0) {
+      slide = slider.find('.chapter-children');
     }
+    console.log(slide.find('h5 a').html(), slide.data('slick-index'));
+    slider.slick('slickGoTo', slide.data('slick-index'));
   });
 }
 
@@ -299,16 +319,19 @@ $(document).on('click', '.slide', function (e){
   }
 
   // goto the picked slide
-  slider.find('.chapter-picked').removeClass('chapter-picked');
-  // self.addClass('chapter-picked');
-  self.parent().find('[data-chapter-id="' + self.data('chapter-id') + '"]').addClass('chapter-picked');
   slider.slick('slickGoTo', index);
 
   //start filtering process
 
   filterForward(chapterId, chapterNumber, sliders.length);
   filterBackward(parentId, chapterNumber);
-
+  self.parent()
+    .find(
+      '[data-chapter-id="' 
+      + self.data('chapter-id') 
+      + '"]'
+    )
+    .addClass('chapter-picked');
   //remove add chapter button from empty rows
   clearEmptyRows(sliders);
   return false;
