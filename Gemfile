@@ -19,6 +19,7 @@ group :production do
   gem 'unicorn'
   gem 'unicorn-worker-killer'
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 gem 'autoprefixer-rails'
