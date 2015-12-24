@@ -1,0 +1,39 @@
+.row.cards-list
+  - if action_name == 'index'
+    .col-sm-4
+      = link_to new_video_path, class: 'btn green' do
+        Add New Playlist
+        %i.fa.fa-plus
+  - if @videos.any?
+    .col-sm-12
+      - @videos.each do |video|
+        .card
+          .media
+            = link_to video_path(video), class: 'media-left' do
+              = image_tag video.cover_photo.square, class: 'media-object'
+            .media-body
+              - if video.above_18
+                %p.label.danger 18+
+              - else
+                %p.label.safe for all
+              = link_to video_path(video, selected_track_id: current_user.last_viewed_track(video).id) do
+                %h4.media-heading= video.title
+              %p.description= video.abstract
+              %p.extra-info
+                %span
+                  Author:
+                  = link_to video.user.name, user_path(video.user)
+                %br
+                %span
+                  Likes:
+                  = video.likes
+                %span.tags.pull-right
+                  - video.genres.each do |genre|
+                    %i= genre.name.titleize
+    - if action_name != 'search'
+      .col-sm-12.text-center
+        %nav
+          %ul.pagination
+            = paginate @videos
+  - else
+    %h4 No videos found
