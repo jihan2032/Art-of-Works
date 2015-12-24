@@ -229,8 +229,6 @@ function clearEmptyRows(sliders) {
     slider.slick('slickGoTo', slide.data('slick-index'));
   });
 }
-
-// tracks = buildTracks();
 var windowHeight, headerHeight;
 /* global Maplace chaptersTree quillEditor */
 $(document).ready(function(){
@@ -263,7 +261,7 @@ $(document).ready(function(){
       slidesToScroll: 1,
       centerPadding: '0px',
       centerMode: true,
-      adaptiveHeight: true,
+      // adaptiveHeight: true,
       draggable: false,
       infinite: true
       });
@@ -274,7 +272,7 @@ $(document).ready(function(){
       slidesToScroll: 1,
       centerPadding: '10px',
       centerMode: true,
-      adaptiveHeight: true,
+      // adaptiveHeight: true,
       draggable: false,
       infinite: true
     });
@@ -299,6 +297,9 @@ $(document).ready(function(){
   //   focusOnSelect: true
   // });
   $('[data-toggle="tooltip"]').tooltip()
+  if(typeof selected_chapter_id !== 'undefined') {
+    $('.slide[aria-describedby][data-chapter-id="' + selected_chapter_id + '"]').click();
+  }
 });
 
 
@@ -363,6 +364,29 @@ $(document).on('click', '.slider-add-chapter', function(e) {
   window.location = href.replace(/0$/, parentChapterId)
 });
 
+$(document).on('click', '.show-best-track', function() {
+  tracks_likes = tracks.map(function(t){
+    return t.reduce(function(a, b){
+        return a.likes + b.likes;
+      }, {'likes': 0});
+  });
+
+  var maxLikesIndex = 0;
+  var maxLikes = tracks_likes[maxLikesIndex];
+  for(var i = 0; i< tracks_likes.length; i++) {
+    if (tracks_likes[i] > maxLikes) {
+      maxLikes = tracks_likes[i];
+      maxLikesIndex = i;
+    }
+  }
+  var chapterData = tracks[maxLikesIndex][tracks[maxLikesIndex].length - 1];
+  $('.slide[aria-describedby][data-chapter-id="' + chapterData.id + '"]').click();
+});
+
 $( window).resize(function() {
   $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
 });
+
+if(typeof jsonstr !== 'undefined') {
+  tracks = buildTracks();
+}

@@ -37,6 +37,6 @@
         .video_track-content
           .col-md-5.embed-container
             = embed(@video_track.link_url)
-= javascript_tag do
-  jsonstr = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
-  / selected_track = '#{params[:selected_track_id]}';
+/ = javascript_tag do
+/   jsonstr = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
+/   / selected_track = '#{params[:selected_track_id]}';

@@ -42,8 +42,12 @@
               %p.likes
                 = link_to 'Edit', edit_novel_path(@novel), class: 'btn btn-primary'
 .row.chapters
-  .col-sm-11.text-center
+  .col-sm-2.text-center
+    %buton.btn.btn-success.h3.show-best-track
+      Highlight best track
+  .col-sm-6.col-sm-offset-1.text-center
     %h3 Chapters
+  / .col-sm
 -if @novel.chapters.any?
   - @grouped_chapters.keys.sort.each_with_index do |key, index|
     -value = @grouped_chapters[key]
@@ -92,7 +96,7 @@
         /   = link_to "Like", like_chapter_novels_path(chapter_id: chapter.id, id: @novel), method: :patch, remote: true, class: "btn btn-danger"
     -if index != @grouped_chapters.keys.length - 1
       .row
-        .col-sm-1.col-sm-offset-6.arrow-down
+        .col-sm-7.col-sm-offset-3.text-center.arrow-down
           = image_tag 'svg/arrow-down.svg'
   - if current_user
     .row
