@@ -261,7 +261,7 @@ $(document).ready(function(){
       slidesToScroll: 1,
       centerPadding: '0px',
       centerMode: true,
-      adaptiveHeight: true,
+      // adaptiveHeight: true,
       draggable: false,
       infinite: true
       });
@@ -272,7 +272,7 @@ $(document).ready(function(){
       slidesToScroll: 1,
       centerPadding: '10px',
       centerMode: true,
-      adaptiveHeight: true,
+      // adaptiveHeight: true,
       draggable: false,
       infinite: true
     });
@@ -297,6 +297,9 @@ $(document).ready(function(){
   //   focusOnSelect: true
   // });
   $('[data-toggle="tooltip"]').tooltip()
+  if(typeof selected_chapter_id !== 'undefined') {
+    $('.slide[aria-describedby][data-chapter-id="' + selected_chapter_id + '"]').click();
+  }
 });
 
 
@@ -363,7 +366,7 @@ $(document).on('click', '.slider-add-chapter', function(e) {
 
 $(document).on('click', '.show-best-track', function() {
   tracks_likes = tracks.map(function(t){
-    t.reduce(function(a, b){
+    return t.reduce(function(a, b){
         return a.likes + b.likes;
       }, {'likes': 0});
   });
@@ -376,17 +379,14 @@ $(document).on('click', '.show-best-track', function() {
       maxLikesIndex = i;
     }
   }
-  var chapterId = tracks[i][tracks[i].length - 1];
-  $('[data-chapter-id="' + selected_chapter + '"]').click();
+  var chapterData = tracks[maxLikesIndex][tracks[maxLikesIndex].length - 1];
+  $('.slide[aria-describedby][data-chapter-id="' + chapterData.id + '"]').click();
 });
 
 $( window).resize(function() {
   $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
 });
 
-if (jsonstr) {
+if(typeof jsonstr !== 'undefined') {
   tracks = buildTracks();
-}
-if(selected_chapter) {
-  $('[data-chapter-id="' + selected_chapter + '"]').click();
 }

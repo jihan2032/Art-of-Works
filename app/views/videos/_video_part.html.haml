@@ -42,7 +42,10 @@
               %p.likes
                 = link_to 'Edit', edit_video_path(@video), class: 'btn btn-primary'
 .row.video_tracks
-  .col-sm-11.text-center
+  .col-sm-2.text-center
+    %buton.btn.btn-success.h3.show-best-track
+      Highlight best track
+  .col-sm-6.col-sm-offset-1.text-center
     %h3 video_tracks
 -if @video.video_tracks.any?
   - @grouped_video_tracks.keys.sort.each do |key|
