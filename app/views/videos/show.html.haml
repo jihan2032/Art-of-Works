@@ -13,7 +13,7 @@
     .video_part
       = render 'video_part'
 = javascript_tag do
-  jsonstr = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
-  jsonstr = '[#{raw (@novel.video_tracks.map{|track| '{"id"=>' + track.id.to_s + ', "parent_id"=>"' + track.parent_id.to_s + '", "title"=>"' + track.title + '", "track_no"=>' + track.track_no.to_s + ', "likes"=>' + track.likes.to_s + '}'}.inject(){|jsonstr, track_str| jsonstr + ',' + track_str})}]';
+  jsonstr2 = '#{raw @video.video_tracks.select(:id, :title, :track_no, :parent_id).as_json}';
+  jsonstr = '[#{raw (@video.video_tracks.map{|track| '{"id"=>' + track.id.to_s + ', "parent_id"=>"' + track.parent_id.to_s + '", "title"=>"' + track.title + '", "track_no"=>' + track.track_no.to_s + ', "likes"=>' + track.likes.to_s + '}'}.inject(){|jsonstr, track_str| jsonstr + ',' + track_str})}]';
   - if params[:selected_track_id]
     selected_chapter_id = '#{params[:selected_track_id]}';

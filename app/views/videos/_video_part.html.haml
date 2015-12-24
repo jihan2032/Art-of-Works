@@ -48,7 +48,7 @@
   .col-sm-6.col-sm-offset-1.text-center
     %h3 video_tracks
 -if @video.video_tracks.any?
-  - @grouped_video_tracks.keys.sort.each do |key|
+  - @grouped_video_tracks.keys.sort.each_with_index do |key, index|
     -value = @grouped_video_tracks[key]
     .row.level
       .col-sm-2
@@ -93,10 +93,11 @@
         /   = link_to "unlike", unlike_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-warning"
         / - else
         /   = link_to "Like", like_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-danger"
-    .row
-      .col-sm-1.col-sm-offset-6.arrow-down
-        = image_tag 'svg/arrow-down.svg'
-        
+    -if index != @grouped_chapters.keys.length - 1
+      .row
+        .col-sm-7.col-sm-offset-3.text-center.arrow-down
+          = image_tag 'svg/arrow-down.svg'
+
   - if current_user
     .row
       .col-sm-1.col-sm-offset-5.text-center

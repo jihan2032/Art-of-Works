@@ -20,70 +20,70 @@ DEFAULTS: &DEFAULTS
 shinigami:
       title: shinigami
       user: Mohammad_Kamal
-      genres: romance,romance,romance,romance
+      genres: romance,romance
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Necromancer:
       title: Necromancer
       user: Khaled_Iker
-      genres: adventure,romance,adventure,romance
+      genres: adventure,romance
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Cursed_Spirit:
       title: Cursed Spirit
       user: Leandro_Rani
-      genres: romance,romance,horror,adventure
+      genres: horror,adventure
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Illusionist:
       title: Illusionist
       user: Leandro_Rani
-      genres: horror,adventure,horror,romance
+      genres: horror,romance
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Bellerophon:
       title: Bellerophon
       user: William_Mahmed
-      genres: horror,horror,horror,romance
+      genres: horror,romance
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Sharingan:
       title: Sharingan
       user: Lucas_Thomas
-      genres: horror,adventure,romance,adventure
+      genres: horror,adventure
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Death_Note:
       title: Death Note
       user: Salik_Adam
-      genres: adventure,horror,romance,adventure
+      genres: romance,adventure
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 sure_:
       title: sure 
       user: Alexander_Gabriel
-      genres: romance,horror,horror,adventure
+      genres: romance,adventure
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 tuturuuu:
       title: tuturuuu
       user: Khaled_Iker
-      genres: romance,adventure,adventure,romance
+      genres: romance,horror
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
 Rho_Aias:
       title: Rho Aias
       user: Arata_Julian
-      genres: romance,adventure,adventure,horror
+      genres: romance,horror
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
