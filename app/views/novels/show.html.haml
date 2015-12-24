@@ -14,4 +14,7 @@
       = render 'novel_part'
 = javascript_tag do
   jsonstr = '#{raw @novel.chapters.select(:id, :title, :chapter_no, :parent_id).as_json}';
-  selected_chapter = '#{params[:selected_chapter_id]}';
+  jsonstr2 = '#{raw (@novel.chapters.map{|chapter| [chapter.id, chapter.title, chapter.chapter_no, chapter.likes]})}';
+  - if params[:selected_chapter_id]
+    selected_chapter_likes = '#{Chapter.find_by_id(params[:selected_chapter_id]).likes}';
+    selected_chapter_id = '#{params[:selected_chapter_id]}';

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     member do
       get :my_readings
       get :my_writings
+      get :my_created_videos
+      get :my_viewed_videos
     end
   end
   resources  :novels do

@@ -42,8 +42,8 @@ class User < ActiveRecord::Base
   has_many :liked_chapters
   has_many :viewed_video_tracks
   has_many :liked_video_tracks
-  has_many :read_novels, through: :read_chapters
-  has_many :viewed_videos, through: :viewed_video_tracks
+  # has_many :read_novels, through: :read_chapters
+  # has_many :viewed_videos, through: :viewed_video_tracks, class_name: 'Video'
 
   # Validations
   validates :user_name, presence: true
@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
 
   def read_novels
     Novel.where(id: Chapter.where(id: read_chapters.pluck(:chapter_id)).pluck(:novel_id))
+  end
+
+  def viewed_videos
+    Video.where(id: VideoTrack.where(id: viewed_video_tracks.pluck(:video_track_id)).pluck(:video_id))
   end
 
   def like_chapter?(chapter)

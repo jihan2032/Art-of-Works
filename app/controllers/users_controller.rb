@@ -27,11 +27,11 @@ class UsersController < ApplicationController
   end
 
   def my_created_videos
-    @novels = @user.videos.page params[:page]
+    @videos = @user.videos.page params[:page]
   end
 
   def my_viewed_videos
-    @novels = @user.viewed_videos.page params[:page]
+    @videos = @user.viewed_videos.page params[:page]
   end
 
 private
