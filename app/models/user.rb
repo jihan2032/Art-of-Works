@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
     (novel.chapters & Chapter.where(id: read_chapters.pluck(:chapter_id))).last
   end
 
+  def last_viewed_track(video)
+    (video.video_tracks & VideoTrack.where(id: viewed_video_tracks.pluck(:video_track_id))).last
+  end
+
   # def viewed_videos
   #   Video.where(id: VideoTrack.where(id: viewed_video_tracks.pluck(:video_track_id)).pluck(:video_id))
   # end

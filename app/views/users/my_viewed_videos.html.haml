@@ -10,6 +10,6 @@
           %li.active My Viewed Playlists
     - if @videos.any?
       .videos_part
-        = render 'videos/videos'
+        = render 'viewed_videos'
     - else
       %h4 No viewed playlists yet
