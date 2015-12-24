@@ -42,8 +42,12 @@
               %p.likes
                 = link_to 'Edit', edit_novel_path(@novel), class: 'btn btn-primary'
 .row.chapters
-  .col-sm-11.text-center
+  .col-sm-2.text-center
+    %buton.btn.btn-success.h3
+      Highlight best track
+  .col-sm-6.col-sm-offset-1.text-center
     %h3 Chapters
+  / .col-sm
 -if @novel.chapters.any?
   - @grouped_chapters.keys.sort.each_with_index do |key, index|
     -value = @grouped_chapters[key]

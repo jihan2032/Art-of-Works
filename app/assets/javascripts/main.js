@@ -229,8 +229,6 @@ function clearEmptyRows(sliders) {
     slider.slick('slickGoTo', slide.data('slick-index'));
   });
 }
-
-// tracks = buildTracks();
 var windowHeight, headerHeight;
 /* global Maplace chaptersTree quillEditor */
 $(document).ready(function(){
@@ -363,6 +361,32 @@ $(document).on('click', '.slider-add-chapter', function(e) {
   window.location = href.replace(/0$/, parentChapterId)
 });
 
+$(document).on('click', '.show-best-track', function() {
+  tracks_likes = tracks.map(function(t){
+    t.reduce(function(a, b){
+        return a.likes + b.likes;
+      }, {'likes': 0});
+  });
+
+  var maxLikesIndex = 0;
+  var maxLikes = tracks_likes[maxLikesIndex];
+  for(var i = 0; i< tracks_likes.length; i++) {
+    if (tracks_likes[i] > maxLikes) {
+      maxLikes = tracks_likes[i];
+      maxLikesIndex = i;
+    }
+  }
+  var chapterId = tracks[i][tracks[i].length - 1];
+  $('[data-chapter-id="' + selected_chapter + '"]').click();
+});
+
 $( window).resize(function() {
   $('.main-container').css('min-height', (windowHeight - headerHeight) + 'px');
 });
+
+if (jsonstr) {
+  tracks = buildTracks();
+}
+if(selected_chapter) {
+  $('[data-chapter-id="' + selected_chapter + '"]').click();
+}
