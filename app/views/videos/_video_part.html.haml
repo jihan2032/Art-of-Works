@@ -93,7 +93,7 @@
         /   = link_to "unlike", unlike_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-warning"
         / - else
         /   = link_to "Like", like_video_track_videos_path(video_track_id: video_track.id, id: @video), method: :patch, remote: true, class: "btn btn-danger"
-    -if index != @grouped_chapters.keys.length - 1
+    -if index != @grouped_video_tracks.keys.length - 1
       .row
         .col-sm-7.col-sm-offset-3.text-center.arrow-down
           = image_tag 'svg/arrow-down.svg'
@@ -101,7 +101,7 @@
   - if current_user
     .row
       .col-sm-1.col-sm-offset-5.text-center
-        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next video  track", 'data-chapter-number' => ((@grouped_video_tracks.max_by{|k,v| k}[0]) || 0 + 1)}
+        %input.slider-add-chapter{'type' => 'image', 'data-href' => new_video_video_track_path(@video, parent_video_track_id: 0), 'src' => image_url('svg/add.svg'), 'data-toggle' => "tooltip", 'data-placement' => "left",'title' => "Add Next video  track", 'data-chapter-number' => (@grouped_video_tracks.max_by{|k,v| k}[0] + 1)}
 - else
   .row
     .col-sm-12.text-center
