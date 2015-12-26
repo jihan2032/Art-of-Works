@@ -36,7 +36,11 @@ class Novel < ActiveRecord::Base
 
   # Methods
   def self.has_chapters
-    Novel.where(id: Chapter.where(chapter_no: 1).pluck(:novel_id)) if Chapter.any?
+    if Chapter.any?
+      Novel.where(id: Chapter.where(chapter_no: 1).pluck(:novel_id)) 
+    else
+      []
+    end
   end
 
   def tracks_no

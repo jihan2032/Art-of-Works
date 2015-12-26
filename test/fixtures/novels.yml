@@ -17,73 +17,73 @@
 ---
 DEFAULTS: &DEFAULTS
   created_at: <%= 3.weeks.ago.to_s(:db) %>
-shinigami:
-      title: shinigami
-      user: Mohammad_Kamal
-      genres: romance,romance
+traps:
+      title: traps
+      user: Oscar_Daniel
+      genres: Tragedy,Non-fiction
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Necromancer:
-      title: Necromancer
-      user: Khaled_Iker
-      genres: adventure,romance
+berserker:
+      title: berserker
+      user: Yusuf_Daniel
+      genres: Comedy,Satire
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Cursed_Spirit:
-      title: Cursed Spirit
-      user: Leandro_Rani
-      genres: horror,adventure
+nothing:
+      title: nothing
+      user: Tamir_Wout
+      genres: Comedy,Tragedy
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Illusionist:
-      title: Illusionist
-      user: Leandro_Rani
-      genres: horror,romance
+Pegasus:
+      title: Pegasus
+      user: Noah_Jacob
+      genres: Realistic fiction,Comedy
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Bellerophon:
-      title: Bellerophon
-      user: William_Mahmed
-      genres: horror,romance
+fight:
+      title: fight
+      user: Oscar_Daniel
+      genres: Realistic fiction,Comedy
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Sharingan:
-      title: Sharingan
-      user: Lucas_Thomas
-      genres: horror,adventure
+Pandora_s_box:
+      title: Pandora's box
+      user: David_Liam
+      genres: Tragedy,Non-fiction
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Death_Note:
-      title: Death Note
-      user: Salik_Adam
-      genres: romance,adventure
+Power_of_the_king:
+      title: Power of the king
+      user: Tamir_Wout
+      genres: Comedy,Tragicomedy
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-sure_:
-      title: sure 
-      user: Alexander_Gabriel
-      genres: romance,adventure
+The_prestige:
+      title: The prestige
+      user: Oscar_Daniel
+      genres: Tragicomedy,Non-fiction
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-tuturuuu:
-      title: tuturuuu
-      user: Khaled_Iker
-      genres: romance,horror
+Future_Gadget:
+      title: Future Gadget
+      user: David_Liam
+      genres: Tragedy,Tragicomedy
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.
-Rho_Aias:
-      title: Rho Aias
-      user: Arata_Julian
-      genres: romance,horror
+Greed_&_desires:
+      title: Greed & desires
+      user: Oliver_Yong
+      genres: Romance novel,Drama
       <<: *DEFAULTS
       abstract: |-
         Lorem ipsum Ut reprehenderit laboris magna irure magna pariatur in pariatur elit ut         id sed exercitation qui velit deserunt sed amet occaecat.

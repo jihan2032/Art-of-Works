@@ -11,12 +11,27 @@
 ---
 DEFAULTS: &DEFAULTS
   created_at: <%= 3.weeks.ago.to_s(:db) %>
-horror:
-      name: horror
+Comedy:
+      name: Comedy
       <<: *DEFAULTS
-adventure:
-      name: adventure
+Drama:
+      name: Drama
       <<: *DEFAULTS
-romance:
-      name: romance
+Non-fiction:
+      name: Non-fiction
+      <<: *DEFAULTS
+Realistic fiction:
+      name: Realistic fiction
+      <<: *DEFAULTS
+Romance novel:
+      name: Romance novel
+      <<: *DEFAULTS
+Satire:
+      name: Satire
+      <<: *DEFAULTS
+Tragedy:
+      name: Tragedy
+      <<: *DEFAULTS
+Tragicomedy:
+      name: Tragicomedy
       <<: *DEFAULTS
