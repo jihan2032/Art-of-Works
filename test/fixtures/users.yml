@@ -31,103 +31,103 @@
 ---
 DEFAULTS: &DEFAULTS
   created_at: <%= 3.weeks.ago.to_s(:db) %>
-Mikel_Abdullah:
-      user_name: Mikel Abdullah
-      email: Mikel.Abdullah@gmail.com
+Lachlan_Mario:
+      user_name: Lachlan Mario
+      email: Lachlan.Mario@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Tehei_Thato:
-      user_name: Tehei Thato
-      email: Tehei.Thato@gmail.com
+Mohamed_Noah:
+      user_name: Mohamed Noah
+      email: Mohamed.Noah@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Arata_Julian:
-      user_name: Arata Julian
-      email: Arata.Julian@gmail.com
+Manuel_Krishna:
+      user_name: Manuel Krishna
+      email: Manuel.Krishna@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Alexander_Gabriel:
-      user_name: Alexander Gabriel
-      email: Alexander.Gabriel@gmail.com
+Victor_Luis:
+      user_name: Victor Luis
+      email: Victor.Luis@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Cooper_Paul:
-      user_name: Cooper Paul
-      email: Cooper.Paul@gmail.com
+Oliver_Yong:
+      user_name: Oliver Yong
+      email: Oliver.Yong@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Andrei_Igor:
-      user_name: Andrei Igor
-      email: Andrei.Igor@gmail.com
+Jonas_James:
+      user_name: Jonas James
+      email: Jonas.James@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-William_Mahmed:
-      user_name: William Mahmed
-      email: William.Mahmed@gmail.com
+Yusuf_Daniel:
+      user_name: Yusuf Daniel
+      email: Yusuf.Daniel@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Bahah_Filipe:
-      user_name: Bahah Filipe
-      email: Bahah.Filipe@gmail.com
+Charlie_William:
+      user_name: Charlie William
+      email: Charlie.William@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Lucas_Thomas:
-      user_name: Lucas Thomas
-      email: Lucas.Thomas@gmail.com
+Jack_Jacob:
+      user_name: Jack Jacob
+      email: Jack.Jacob@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Khaled_Iker:
-      user_name: Khaled Iker
-      email: Khaled.Iker@gmail.com
+Khaled_Dmytro:
+      user_name: Khaled Dmytro
+      email: Khaled.Dmytro@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Luca_Oscar:
-      user_name: Luca Oscar
-      email: Luca.Oscar@gmail.com
+Jack_Georgi:
+      user_name: Jack Georgi
+      email: Jack.Georgi@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Flavio_Jian:
-      user_name: Flavio Jian
-      email: Flavio.Jian@gmail.com
+Oscar_Daniel:
+      user_name: Oscar Daniel
+      email: Oscar.Daniel@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Salik_Adam:
-      user_name: Salik Adam
-      email: Salik.Adam@gmail.com
+Yusuf_Omer:
+      user_name: Yusuf Omer
+      email: Yusuf.Omer@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Jack_David:
-      user_name: Jack David
-      email: Jack.David@gmail.com
+David_Liam:
+      user_name: David Liam
+      email: David.Liam@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Leandro_Rani:
-      user_name: Leandro Rani
-      email: Leandro.Rani@gmail.com
+William_Filipe:
+      user_name: William Filipe
+      email: William.Filipe@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Thato_Victor:
-      user_name: Thato Victor
-      email: Thato.Victor@gmail.com
+Dimitrios_Jayden:
+      user_name: Dimitrios Jayden
+      email: Dimitrios.Jayden@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Eric_Ali:
-      user_name: Eric Ali
-      email: Eric.Ali@gmail.com
+Noah_Jacob:
+      user_name: Noah Jacob
+      email: Noah.Jacob@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Mohammad_Kamal:
-      user_name: Mohammad Kamal
-      email: Mohammad.Kamal@gmail.com
+Zoran_Michal:
+      user_name: Zoran Michal
+      email: Zoran.Michal@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Noah_Huseyn:
-      user_name: Noah Huseyn
-      email: Noah.Huseyn@gmail.com
+Joseph_Tyler:
+      user_name: Joseph Tyler
+      email: Joseph.Tyler@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
-Louis_Bilal:
-      user_name: Louis Bilal
-      email: Louis.Bilal@gmail.com
+Tamir_Wout:
+      user_name: Tamir Wout
+      email: Tamir.Wout@gmail.com
       encrypted_password: "$2a$10$KMYs9whkhl1uLyeJSqMFLutp.K6f0zZuPp0V4A7Pgy1ihZjV71lR6"
       <<: *DEFAULTS
