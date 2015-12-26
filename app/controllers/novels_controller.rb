@@ -24,20 +24,20 @@ class NovelsController < ApplicationController
     keyword = params[:search]
     if keyword.present?
       # search by genre
-      if Genre.pluck(:name).include? keyword.downcase
-        @novels = Genre.where(name: keyword.downcase).first.novels
-        @genre = Genre.where(name: keyword.downcase).first
-      else
-        # search by title
-        @novels = Novel.has_chapters.search(keyword)
-        if @novels.any?
-        # search by author
-        elsif User.search(keyword).any?
-          @authors = User.search(keyword)
-          @novels  = Novel.has_chapters.where(user_id: @authors.results.map(&:id))
-        end
-      end
-    else #nothing in the search box
+      # if Genre.pluck(:name).include? keyword.downcase
+      #   @novels = Genre.where(name: keyword.downcase).first.novels
+      #   @genre = Genre.where(name: keyword.downcase).first
+      # else
+      #   # search by title
+      #   @novels = Novel.has_chapters.search(keyword)
+      #   if @novels.any?
+      #   # search by author
+      #   elsif User.search(keyword).any?
+      #     @authors = User.search(keyword)
+      #     @novels  = Novel.has_chapters.where(user_id: @authors.results.map(&:id))
+      #   end
+      # end
+    # else #nothing in the search box
       @novels = Novel.has_chapters
     end
     # Genre filter

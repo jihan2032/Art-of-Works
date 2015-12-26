@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :profile_picture, ProfilePictureUploader
 
-  searchkick text_start: [:first_name, :last_name, :user_name]
+  # searchkick text_start: [:first_name, :last_name, :user_name]
 
   # Methods
   def name

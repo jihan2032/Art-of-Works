@@ -16,7 +16,7 @@
 
 class Novel < ActiveRecord::Base
 
-  searchkick text_start: [:title]
+  # searchkick text_start: [:title]
 
   # Relations
   has_many   :chapters
